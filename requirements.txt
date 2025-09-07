@@ -1,0 +1,5 @@
+# Backend Flask Dependencies
+# PostgreSQL Database Dependencies  
+# AI/ML TensorFlow Dependencies
+# Image Processing Dependencies
+# Utility Dependencies

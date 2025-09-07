@@ -1,0 +1,3 @@
+-- PostgreSQL sample data for testing
+-- Insert statements for departments, test users, and sample complaints
+-- Includes geospatial test data for location-based features

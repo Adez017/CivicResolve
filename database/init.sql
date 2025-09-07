@@ -1,0 +1,3 @@
+-- PostgreSQL database schema initialization script
+-- Creates tables for users, complaints, departments, and related entities
+-- Includes PostGIS extension for geospatial data support
