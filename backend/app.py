@@ -55,7 +55,9 @@ def create_app(config_name='default'):
         
     return app
 
+# Create app instance for gunicorn
+app = create_app()
+
 if __name__ == '__main__':
-    app = create_app()
     print("🚀 CivicResolve Server Running on http://0.0.0.0:5000")
     app.run(host='0.0.0.0', port=5000, debug=True)
