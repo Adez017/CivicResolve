@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { api, endpoints, IMG_BASE_URL } from '../lib/api';
 import { IncidentReport } from '../types';
-import { RefreshCw, LayoutDashboard, CheckSquare, AlertCircle, CheckCircle2, List, Send, Map as MapIcon, ChevronRight, Activity, Database, ShieldCheck } from 'lucide-react';
+import { RefreshCw, LayoutDashboard, CheckSquare, AlertCircle, CheckCircle2, List, Send, Map as MapIcon, ChevronRight, Activity, Database, ShieldCheck, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminView: React.FC = () => {
