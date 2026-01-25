@@ -1,1 +1,3 @@
 # Git ignore file
+# Data archives
+data/archive/

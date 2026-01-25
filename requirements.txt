@@ -1,5 +1,14 @@
 # Backend Flask Dependencies
+Flask>=2.3.0
+Flask-SQLAlchemy>=3.0.0
+Flask-CORS>=4.0.0
+
+
+python-dotenv>=1.0.0
 # PostgreSQL Database Dependencies  
 # AI/ML TensorFlow Dependencies
 # Image Processing Dependencies
 # Utility Dependencies
+requests>=2.31.0
+pyyaml>=6.0
+matplotlib>=3.7.0

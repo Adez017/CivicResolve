@@ -1,1 +1,0 @@
-# Complaint database model

@@ -1,1 +1,0 @@
-# Severity level database model
