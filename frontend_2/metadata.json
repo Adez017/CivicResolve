@@ -1,7 +1,0 @@
-{
-  "name": "CivicResolve Secure",
-  "description": "A modern, production-ready civic issue management dashboard for Admins, Workers, and Smart Cameras.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}
