@@ -4,6 +4,7 @@ Validates civic issue reports for authenticity before processing.
 """
 
 import os
+import threading
 from datetime import datetime, timedelta
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -269,14 +270,60 @@ class IssueValidator:
             self.checks['content'] = {'status': 'error', 'error': str(e)}
 
 
-# Singleton instance for reuse
+# Thread-safe singleton implementation
 _validator_instance = None
+_validator_lock = threading.Lock()
+
 
 def get_validator(model=None):
-    """Get or create validator instance."""
+    """
+    Get or create a thread-safe singleton IssueValidator instance.
+    
+    Uses double-checked locking pattern to ensure thread safety while
+    minimizing lock contention. This is critical for multi-threaded
+    WSGI servers like gunicorn.
+    
+    Args:
+        model: Optional YOLO model instance to use for content verification.
+               If provided and the singleton doesn't have a model, it will be set.
+    
+    Returns:
+        IssueValidator: The singleton validator instance.
+    
+    Thread Safety:
+        This function is safe to call from multiple threads simultaneously.
+        The first call creates the instance; subsequent calls return the
+        existing instance without acquiring the lock (fast path).
+    """
     global _validator_instance
-    if _validator_instance is None:
-        _validator_instance = IssueValidator(yolo_model=model)
-    elif model and _validator_instance.model is None:
-        _validator_instance.model = model
+    
+    # Fast path: instance already exists (no lock needed)
+    if _validator_instance is not None:
+        # Update model if needed (atomic check-then-act requires lock)
+        if model and _validator_instance.model is None:
+            with _validator_lock:
+                # Double-check after acquiring lock
+                if _validator_instance.model is None:
+                    _validator_instance.model = model
+        return _validator_instance
+    
+    # Slow path: need to create instance (requires lock)
+    with _validator_lock:
+        # Double-check after acquiring lock (another thread may have created it)
+        if _validator_instance is None:
+            _validator_instance = IssueValidator(yolo_model=model)
+    
     return _validator_instance
+
+
+def reset_validator():
+    """
+    Reset the singleton instance. Useful for testing.
+    
+    Warning:
+        This is NOT thread-safe during normal operation.
+        Only use in test setup/teardown or application shutdown.
+    """
+    global _validator_instance
+    with _validator_lock:
+        _validator_instance = None
