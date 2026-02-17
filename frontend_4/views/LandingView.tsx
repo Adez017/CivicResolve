@@ -11,6 +11,7 @@ import {
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
 import dynamic from 'next/dynamic';
+import Link from "next/link";
 
 const IncidentMap = dynamic(() => import('../components/IncidentMap'), { 
   ssr: false,
@@ -454,7 +455,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
             whileHover={{ scale: 1.1 }}
-            className="mt-24 flex flex-col items-center gap-2 cursor-pointer group"
+            className="mt-20 flex flex-col items-center gap-2 cursor-pointer group"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
@@ -893,7 +894,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 </section>
 
       {/* Footer */}
-      <footer className="py-40 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
+<footer className="py-24 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
             <div className="md:col-span-2 space-y-12">
@@ -1025,8 +1026,30 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
               </motion.div>
             </div>
           </div>
+<div className="mt-6 flex justify-end items-center gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
+  <Link
+    href="/privacy-policy"
+    className="hover:text-violet-400 transition-colors duration-300"
+  >
+    Privacy
+  </Link>
+
+  <Link
+    href="/terms-conditions"
+    className="hover:text-violet-400 transition-colors duration-300"
+  >
+    Terms
+  </Link>
+
+  <Link
+    href="/disclaimer"
+    className="hover:text-violet-400 transition-colors duration-300"
+  >
+    Cookie
+  </Link>
+</div>
           
-          <div className="mt-40 pt-16 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-10 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
+<div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
             <span>&copy; {new Date().getFullYear()} Bhopal Smart City Initiative</span>
             <motion.span 
               animate={{ opacity: [0.5, 1, 0.5] }}
