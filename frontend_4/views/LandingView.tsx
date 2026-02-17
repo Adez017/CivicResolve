@@ -6,7 +6,7 @@ import {
   Activity, ShieldCheck, MapPin, Trash2, AlertTriangle,
   ArrowRight, CheckCircle2, Globe, Users, Loader2,
   X, Database, LayoutList, BarChart3, Filter, Sparkles,
-  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github
+  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves
 } from 'lucide-react';
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
@@ -242,9 +242,33 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
   // Hover glow effect state
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  // ==================== THEME TOGGLE ====================
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
+  // ======================================================
 
   return (
-    <div className="min-h-screen mesh-gradient-cyber selection:bg-violet-500/30 overflow-x-hidden text-slate-100 noise-overlay" onMouseMove={handleMouseMove}>
+    <div
+      className={`min-h-screen selection:bg-violet-500/30 overflow-x-hidden noise-overlay transition-colors duration-500 ${theme === 'dark'
+          ? 'mesh-gradient-cyber text-slate-100 bg-[#030712]'
+          : 'bg-slate-100 text-slate-900'
+        }`}
+      onMouseMove={handleMouseMove}
+    >
       {/* Cursor Glow */}
       <div
         className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0 opacity-30 blur-[100px] transition-transform duration-300"
