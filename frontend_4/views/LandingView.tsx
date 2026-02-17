@@ -6,7 +6,8 @@ import {
   Activity, ShieldCheck, MapPin, Trash2, AlertTriangle, 
   ArrowRight, CheckCircle2, Globe, Users, Loader2, 
   X, Database, LayoutList, BarChart3, Filter, Sparkles,
-  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves
+  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves,
+  Sun, Moon
 } from 'lucide-react';
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
@@ -242,9 +243,34 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
   // Hover glow effect state
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  // ==================== THEME TOGGLE ====================
+const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+useEffect(() => {
+  const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+  if (savedTheme) {
+    setTheme(savedTheme);
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+  }
+}, []);
+
+const toggleTheme = () => {
+  const newTheme = theme === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
+  localStorage.setItem('theme', newTheme);
+  document.documentElement.classList.toggle('dark', newTheme === 'dark');
+};
+// ======================================================
 
   return (
-    <div className="min-h-screen mesh-gradient-cyber selection:bg-violet-500/30 overflow-x-hidden text-slate-100 noise-overlay" onMouseMove={handleMouseMove}>
+<div
+  className={`min-h-screen selection:bg-violet-500/30 overflow-x-hidden noise-overlay transition-colors duration-500 ${
+    theme === 'dark'
+      ? 'mesh-gradient-cyber text-slate-100 bg-[#030712]'
+      : 'bg-slate-100 text-slate-900'
+  }`}
+  onMouseMove={handleMouseMove}
+>
       {/* Cursor Glow */}
       <div 
         className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0 opacity-30 blur-[100px] transition-transform duration-300"
@@ -307,25 +333,49 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             </motion.span>
           </motion.div>
           
-          <div className="flex items-center gap-8">
-            <motion.button 
-              whileHover={{ scale: 1.05, x: 5 }}
-              onClick={() => setShowTable(true)}
-              className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
-            >
-              <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
-              <span>Live Feed</span>
-              <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all -ml-1" />
-            </motion.button>
-            <MagneticButton 
-              onClick={onEnterPortal}
-              className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
-            >
-              <span className="relative z-10">Control Center</span>
-              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </MagneticButton>
-          </div>
+         <div className="flex items-center gap-6">
+  {/* Live Feed */}
+  <motion.button 
+    whileHover={{ scale: 1.05, x: 5 }}
+    onClick={() => setShowTable(true)}
+    className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
+  >
+    <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
+    <span>Live Feed</span>
+    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all -ml-1" />
+  </motion.button>
+
+  {/* Control Center */}
+  <MagneticButton 
+    onClick={onEnterPortal}
+    className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
+  >
+    <span className="relative z-10">Control Center</span>
+    <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+  </MagneticButton>
+
+  {/* Theme Toggle */}
+  <motion.button
+    onClick={toggleTheme}
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    className="w-11 h-11 rounded-xl flex items-center justify-center backdrop-blur-xl border border-violet-500/20 bg-slate-800/40 dark:bg-slate-800/40 transition-all shadow-lg"
+  >
+    <motion.div
+      key={theme}
+      initial={{ rotate: -90, opacity: 0 }}
+      animate={{ rotate: 0, opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      {theme === 'dark' ? (
+        <Sun className="w-5 h-5 text-yellow-400" />
+      ) : (
+        <Moon className="w-5 h-5 text-indigo-600" />
+      )}
+    </motion.div>
+  </motion.button>
+</div>
         </div>
       </motion.nav>
 
