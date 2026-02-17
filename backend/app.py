@@ -1,5 +1,7 @@
 import os
 import sys
+import logging
+
 from pathlib import Path
 from flask import Flask, jsonify, send_from_directory  # <--- Import send_from_directory
 from flask_cors import CORS
@@ -19,6 +21,7 @@ def create_app(config_name='default'):
     # Extensions
     CORS(app)
     db.init_app(app)
+    logging.basicConfig(level=logging.INFO)
 
     # --- 1. ROOT ROUTE (To fix 404 on home page) ---
     @app.route('/')
@@ -48,6 +51,53 @@ def create_app(config_name='default'):
     app.register_blueprint(task_bp, url_prefix='/api/workflow/tasks')
     app.register_blueprint(worker_bp, url_prefix='/api/workflow/worker')
     app.register_blueprint(verify_bp, url_prefix='/api/workflow/verify')
+
+
+    # -----------------------------
+    # Global Error Handlers
+    # -----------------------------
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            "success": False,
+            "error": "Bad Request",
+            "message": str(error)
+        }), 400
+
+    @app.errorhandler(401)
+    def unauthorized(error):
+        return jsonify({
+            "success": False,
+            "error": "Unauthorized",
+            "message": "Authentication required"
+        }), 401
+
+    @app.errorhandler(403)
+    def forbidden(error):
+        return jsonify({
+            "success": False,
+            "error": "Forbidden",
+            "message": "You do not have permission to access this resource"
+        }), 403
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            "success": False,
+            "error": "Not Found",
+            "message": "The requested resource was not found"
+        }), 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        app.logger.error(f"Server Error: {error}")
+        return jsonify({
+            "success": False,
+            "error": "Internal Server Error",
+            "message": "Something went wrong on the server"
+        }), 500
+
 
     # Create Tables
     with app.app_context():

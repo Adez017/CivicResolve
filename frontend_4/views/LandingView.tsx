@@ -12,6 +12,7 @@ import {
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
 import dynamic from 'next/dynamic';
+import Link from "next/link";
 
 const IncidentMap = dynamic(() => import('../components/IncidentMap'), { 
   ssr: false,
@@ -504,7 +505,7 @@ const toggleTheme = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
             whileHover={{ scale: 1.1 }}
-            className="mt-24 flex flex-col items-center gap-2 cursor-pointer group"
+            className="mt-20 flex flex-col items-center gap-2 cursor-pointer group"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
@@ -886,9 +887,64 @@ const toggleTheme = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* About Section */}
+<section className="py-32 px-6 relative z-10 border-t border-violet-500/10 bg-[#030712]/80">
+  <div className="max-w-5xl mx-auto text-center space-y-8">
+    
+    <h2 className="text-5xl font-black tracking-tighter text-white">
+      About <span className="gradient-text-animated">CivicResolve</span>
+    </h2>
+
+    <p className="text-slate-400 text-lg leading-relaxed font-medium">
+      CivicResolve is an AI-powered civic intelligence platform designed to help
+      cities monitor, analyze, and resolve public infrastructure issues such as
+      garbage accumulation, potholes, and maintenance concerns.
+    </p>
+
+    <p className="text-slate-500 text-base leading-relaxed max-w-3xl mx-auto">
+      Citizens and authorized users can report incidents, visualize real-time
+      data on an interactive map, and track resolution progress through a
+      centralized control center. The system leverages neural detection,
+      spatial mapping, and real-time analytics to improve transparency and
+      accelerate civic response.
+    </p>
+
+    <div className="grid md:grid-cols-3 gap-8 pt-12 text-left">
+      
+      <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
+        <h4 className="text-violet-400 font-black uppercase tracking-widest text-xs mb-4">
+          Report
+        </h4>
+        <p className="text-slate-400 text-sm">
+          Submit infrastructure issues with location and category details.
+        </p>
+      </div>
+
+      <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
+        <h4 className="text-cyan-400 font-black uppercase tracking-widest text-xs mb-4">
+          Track
+        </h4>
+        <p className="text-slate-400 text-sm">
+          Monitor status updates and resolution progress in real time.
+        </p>
+      </div>
+
+      <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
+        <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs mb-4">
+          Resolve
+        </h4>
+        <p className="text-slate-400 text-sm">
+          Enable faster action through structured workflow and analytics.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
       {/* Footer */}
-      <footer className="py-40 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
+<footer className="py-24 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
             <div className="md:col-span-2 space-y-12">
@@ -1020,8 +1076,30 @@ const toggleTheme = () => {
               </motion.div>
             </div>
           </div>
+<div className="mt-6 flex justify-end items-center gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
+  <Link
+    href="/privacy-policy"
+    className="hover:text-violet-400 transition-colors duration-300"
+  >
+    Privacy
+  </Link>
+
+  <Link
+    href="/terms-conditions"
+    className="hover:text-violet-400 transition-colors duration-300"
+  >
+    Terms
+  </Link>
+
+  <Link
+    href="/disclaimer"
+    className="hover:text-violet-400 transition-colors duration-300"
+  >
+    Cookie
+  </Link>
+</div>
           
-          <div className="mt-40 pt-16 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-10 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
+<div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
             <span>&copy; {new Date().getFullYear()} Bhopal Smart City Initiative</span>
             <motion.span 
               animate={{ opacity: [0.5, 1, 0.5] }}
