@@ -13,6 +13,7 @@ Usage:
 import os
 import json
 import base64
+import threading
 from pathlib import Path
 
 # Try to import Google Generative AI
@@ -436,12 +437,59 @@ def analyze_civic_issue(image_path: str, issue_type: str = 'pothole',
     return quantifier.quantify_damage(image_path, issue_type)
 
 
-# Singleton instance for reuse
+# Thread-safe singleton implementation
 _quantifier_instance = None
+_quantifier_lock = threading.Lock()
+
 
 def get_quantifier(api_key: str = None) -> DamageQuantifier:
-    """Get or create a singleton DamageQuantifier instance."""
+    """
+    Get or create a thread-safe singleton DamageQuantifier instance.
+    
+    Uses double-checked locking pattern to ensure thread safety while
+    minimizing lock contention. This is critical for multi-threaded
+    WSGI servers like gunicorn.
+    
+    Args:
+        api_key: Optional Google API key for Gemini Vision.
+                 Only used during initial instance creation.
+    
+    Returns:
+        DamageQuantifier: The singleton quantifier instance.
+    
+    Thread Safety:
+        This function is safe to call from multiple threads simultaneously.
+        The first call creates the instance; subsequent calls return the
+        existing instance without acquiring the lock (fast path).
+    
+    Note:
+        If the singleton was created without an API key, subsequent calls
+        with an API key will NOT update it. Create a new instance directly
+        if you need different configuration.
+    """
     global _quantifier_instance
-    if _quantifier_instance is None:
-        _quantifier_instance = DamageQuantifier(api_key=api_key)
+    
+    # Fast path: instance already exists (no lock needed)
+    if _quantifier_instance is not None:
+        return _quantifier_instance
+    
+    # Slow path: need to create instance (requires lock)
+    with _quantifier_lock:
+        # Double-check after acquiring lock (another thread may have created it)
+        if _quantifier_instance is None:
+            _quantifier_instance = DamageQuantifier(api_key=api_key)
+    
     return _quantifier_instance
+
+
+def reset_quantifier():
+    """
+    Reset the singleton instance. Useful for testing.
+    
+    Warning:
+        This is NOT thread-safe during normal operation.
+        Only use in test setup/teardown or application shutdown.
+    """
+    global _quantifier_instance
+    with _quantifier_lock:
+        _quantifier_instance = None
