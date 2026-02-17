@@ -6,7 +6,7 @@ import {
   Activity, ShieldCheck, MapPin, Trash2, AlertTriangle,
   ArrowRight, CheckCircle2, Globe, Users, Loader2,
   X, Database, LayoutList, BarChart3, Filter, Sparkles,
-  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves
+  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github
 } from 'lucide-react';
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
@@ -264,8 +264,8 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
   return (
     <div
       className={`min-h-screen selection:bg-violet-500/30 overflow-x-hidden noise-overlay transition-colors duration-500 ${theme === 'dark'
-          ? 'mesh-gradient-cyber text-slate-100 bg-[#030712]'
-          : 'bg-slate-100 text-slate-900'
+        ? 'mesh-gradient-cyber text-slate-100 bg-[#030712]'
+        : 'bg-slate-100 text-slate-900'
         }`}
       onMouseMove={handleMouseMove}
     >
