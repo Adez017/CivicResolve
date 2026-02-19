@@ -17,7 +17,16 @@ class BaseReport(db.Model):
     address = db.Column(db.String(255))
     
     # Workflow
-    status = db.Column(db.String(20), default='pending') # pending, assigned, completed, verified
+    status = db.Column(
+    db.String(20),
+    default='reported'
+)  # reported, under_review, in_progress, resolved
+    
+    reported_at = db.Column(db.DateTime, default=datetime.utcnow)
+    reviewed_at = db.Column(db.DateTime, nullable=True)
+    in_progress_at = db.Column(db.DateTime, nullable=True)
+    resolved_at = db.Column(db.DateTime, nullable=True)
+
     assigned_worker_id = db.Column(db.String(50), nullable=True)
     verification_notes = db.Column(db.String(500), nullable=True)
     
@@ -30,28 +39,56 @@ class PotholeReport(BaseReport):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'type': 'pothole',
-            'severity': self.severity,
-            'status': self.status,
-            'assigned_to': self.assigned_worker_id,
-            'location': {'lat': self.latitude, 'lng': self.longitude, 'address': self.address},
-            'images': {'original': self.image_filename, 'resolved': self.resolved_image},
-            'created_at': self.created_at.isoformat()
-        }
+    'id': self.id,
+    'type': 'pothole',
+    'severity': self.severity,
+    'status': self.status,
+    'assigned_to': self.assigned_worker_id,
+    'location': {
+        'lat': self.latitude,
+        'lng': self.longitude,
+        'address': self.address
+    },
+    'images': {
+        'original': self.image_filename,
+        'resolved': self.resolved_image
+    },
+    'timeline': {
+        'reported_at': self.reported_at.isoformat() if self.reported_at else None,
+        'reviewed_at': self.reviewed_at.isoformat() if self.reviewed_at else None,
+        'in_progress_at': self.in_progress_at.isoformat() if self.in_progress_at else None,
+        'resolved_at': self.resolved_at.isoformat() if self.resolved_at else None
+    },
+    'created_at': self.created_at.isoformat()
+}
+
+
 
 class GarbageReport(BaseReport):
     __tablename__ = 'garbage'
     garbage_type = db.Column(db.String(50), default='mixed') # plastic, organic
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'type': 'garbage',
-            'garbage_type': self.garbage_type,
-            'status': self.status,
-            'assigned_to': self.assigned_worker_id,
-            'location': {'lat': self.latitude, 'lng': self.longitude, 'address': self.address},
-            'images': {'original': self.image_filename, 'resolved': self.resolved_image},
-            'created_at': self.created_at.isoformat()
-        }
+     return {
+        'id': self.id,
+        'type': 'garbage',
+        'garbage_type': self.garbage_type,
+        'status': self.status,
+        'assigned_to': self.assigned_worker_id,
+        'location': {
+            'lat': self.latitude,
+            'lng': self.longitude,
+            'address': self.address
+        },
+        'images': {
+            'original': self.image_filename,
+            'resolved': self.resolved_image
+        },
+        'timeline': {
+            'reported_at': self.reported_at.isoformat() if self.reported_at else None,
+            'reviewed_at': self.reviewed_at.isoformat() if self.reviewed_at else None,
+            'in_progress_at': self.in_progress_at.isoformat() if self.in_progress_at else None,
+            'resolved_at': self.resolved_at.isoformat() if self.resolved_at else None
+        },
+        'created_at': self.created_at.isoformat()
+    }
