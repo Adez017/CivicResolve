@@ -1,6 +1,8 @@
 import os
 import sys
 import logging
+import time
+from flask import request
 
 from pathlib import Path
 from flask import Flask, jsonify, send_from_directory  # <--- Import send_from_directory
@@ -21,7 +23,43 @@ def create_app(config_name='default'):
     # Extensions
     CORS(app)
     db.init_app(app)
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("logs/project.log"),
+        logging.StreamHandler()
+    ]
+)
+
+
+    # -----------------------------
+    # Request Logging Middleware
+    # -----------------------------
+
+    @app.before_request
+    def start_timer():
+        request.start_time = time.time()
+
+    @app.after_request
+    def log_request(response):
+        if not hasattr(request, "start_time"):
+            return response
+
+        duration = time.time() - request.start_time
+
+        log_data = {
+            "method": request.method,
+            "path": request.path,
+            "status": response.status_code,
+            "duration_ms": round(duration * 1000, 2),
+            "ip": request.remote_addr
+        }
+
+        app.logger.info(f"REQUEST_LOG: {log_data}")
+
+        return response
+
 
     # --- 1. ROOT ROUTE (To fix 404 on home page) ---
     @app.route('/')

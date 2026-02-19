@@ -4390,3 +4390,15 @@
 2026-01-25 12:16:52 - model_tester - INFO - Found pothole (66.6%)
 2026-01-25 12:16:52 - model_tester - INFO - Found garbage (61.1%)
 2026-01-25 12:16:52 - model_tester - INFO - Found garbage (41.9%)
+2026-02-17 10:28:24,642 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.5:5000
+2026-02-17 10:28:24,644 - INFO - [33mPress CTRL+C to quit[0m
+2026-02-17 10:28:24,683 - INFO -  * Restarting with watchdog (windowsapi)
+2026-02-17 10:28:35,928 - WARNING -  * Debugger is active!
+2026-02-17 10:28:35,953 - INFO -  * Debugger PIN: 896-543-030
+2026-02-17 10:28:50,233 - INFO - REQUEST_LOG: {'method': 'GET', 'path': '/', 'status': 200, 'duration_ms': 0.0, 'ip': '127.0.0.1'}
+2026-02-17 10:28:50,239 - INFO - 127.0.0.1 - - [17/Feb/2026 10:28:50] "GET / HTTP/1.1" 200 -
+2026-02-17 10:28:50,399 - INFO - REQUEST_LOG: {'method': 'GET', 'path': '/favicon.ico', 'status': 404, 'duration_ms': 1.0, 'ip': '127.0.0.1'}
+2026-02-17 10:28:50,400 - INFO - 127.0.0.1 - - [17/Feb/2026 10:28:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
