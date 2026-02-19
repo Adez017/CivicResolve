@@ -2,19 +2,18 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
-import { 
-  Activity, ShieldCheck, MapPin, Trash2, AlertTriangle, 
-  ArrowRight, CheckCircle2, Globe, Users, Loader2, 
+import {
+  Activity, ShieldCheck, MapPin, Trash2, AlertTriangle,
+  ArrowRight, CheckCircle2, Globe, Users, Loader2,
   X, Database, LayoutList, BarChart3, Filter, Sparkles,
-  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves,
-  Sun, Moon
+  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github
 } from 'lucide-react';
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
 import dynamic from 'next/dynamic';
 import Link from "next/link";
 
-const IncidentMap = dynamic(() => import('../components/IncidentMap'), { 
+const IncidentMap = dynamic(() => import('../components/IncidentMap'), {
   ssr: false,
   loading: () => <div className="h-full w-full bg-slate-900/50 animate-pulse flex items-center justify-center text-slate-500 font-bold uppercase tracking-widest text-xs">Initializing Neural Map...</div>
 });
@@ -63,7 +62,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: { staggerChildren: 0.15, delayChildren: 0.3 }
     }
@@ -71,10 +70,10 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
   const itemVariants = {
     hidden: { y: 30, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { type: 'spring', damping: 20, stiffness: 100 } 
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: 'spring', damping: 20, stiffness: 100 }
     }
   };
 
@@ -82,7 +81,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
   const { scrollY } = useScroll();
   const heroRef = useRef<HTMLDivElement>(null);
   const heroInView = useInView(heroRef, { once: true });
-  
+
   const navBackground = useTransform(scrollY, [0, 100], ['rgba(3, 7, 18, 0)', 'rgba(3, 7, 18, 0.95)']);
   const navY = useTransform(scrollY, [0, 100], [0, 0]);
   const springNav = useSpring(navY, { stiffness: 100, damping: 20 });
@@ -100,9 +99,9 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
         <motion.div
           key={i}
           className="absolute w-1 h-1 rounded-full bg-violet-500/30"
-          initial={{ 
-            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000), 
-            y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800) 
+          initial={{
+            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+            y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)
           }}
           animate={{
             y: [null, Math.random() * -500 - 100],
@@ -216,7 +215,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
         className={className}
       >
         {children}
-        <div 
+        <div
           className="absolute inset-0 rounded-[inherit] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{
             background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(255,255,255,0.15) 0%, transparent 50%)`
@@ -244,59 +243,58 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
   // Hover glow effect state
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   // ==================== THEME TOGGLE ====================
-const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
-useEffect(() => {
-  const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
-  if (savedTheme) {
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-  }
-}, []);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    }
+  }, []);
 
-const toggleTheme = () => {
-  const newTheme = theme === 'dark' ? 'light' : 'dark';
-  setTheme(newTheme);
-  localStorage.setItem('theme', newTheme);
-  document.documentElement.classList.toggle('dark', newTheme === 'dark');
-};
-// ======================================================
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
+  // ======================================================
 
   return (
-<div
-  className={`min-h-screen selection:bg-violet-500/30 overflow-x-hidden noise-overlay transition-colors duration-500 ${
-    theme === 'dark'
-      ? 'mesh-gradient-cyber text-slate-100 bg-[#030712]'
-      : 'bg-slate-100 text-slate-900'
-  }`}
-  onMouseMove={handleMouseMove}
->
+    <div
+      className={`min-h-screen selection:bg-violet-500/30 overflow-x-hidden noise-overlay transition-colors duration-500 ${theme === 'dark'
+        ? 'mesh-gradient-cyber text-slate-100 bg-[#030712]'
+        : 'bg-slate-100 text-slate-900'
+        }`}
+      onMouseMove={handleMouseMove}
+    >
       {/* Cursor Glow */}
-      <div 
+      <div
         className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0 opacity-30 blur-[100px] transition-transform duration-300"
-        style={{ 
+        style={{
           background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%)',
-          left: mousePosition.x - 250, 
-          top: mousePosition.y - 250 
+          left: mousePosition.x - 250,
+          top: mousePosition.y - 250
         }}
       />
-      
+
       {/* Floating Particles */}
       <FloatingParticles />
-      
+
       {/* Background Orbs */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity }}
           className="orb top-[5%] left-[10%] w-[600px] h-[600px] bg-violet-600/20"
         />
-        <motion.div 
+        <motion.div
           animate={{ scale: [1.1, 0.9, 1.1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, delay: 2 }}
           className="orb bottom-[10%] right-[5%] w-[700px] h-[700px] bg-cyan-500/15"
         />
-        <motion.div 
+        <motion.div
           animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.25, 0.35, 0.25] }}
           transition={{ duration: 12, repeat: Infinity, delay: 4 }}
           className="orb top-[40%] right-[30%] w-[400px] h-[400px] bg-indigo-500/15"
@@ -304,7 +302,7 @@ const toggleTheme = () => {
       </div>
 
       {/* Navigation */}
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.2 }}
@@ -312,11 +310,11 @@ const toggleTheme = () => {
         className="fixed top-0 inset-x-0 h-20 z-50 px-6 border-b border-violet-500/10 backdrop-blur-xl"
       >
         <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.02 }}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <motion.div 
+            <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
               className="p-2.5 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-violet-500/30 relative"
@@ -324,7 +322,7 @@ const toggleTheme = () => {
               <Activity className="w-5 h-5 text-white relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-cyan-400 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
-            <motion.span 
+            <motion.span
               className="font-black text-2xl tracking-tighter text-white"
               whileHover={{ letterSpacing: '0.05em' }}
               transition={{ duration: 0.3 }}
@@ -332,66 +330,42 @@ const toggleTheme = () => {
               Civic<span className="gradient-text-animated">Resolve</span>
             </motion.span>
           </motion.div>
-          
-         <div className="flex items-center gap-6">
-  {/* Live Feed */}
-  <motion.button 
-    whileHover={{ scale: 1.05, x: 5 }}
-    onClick={() => setShowTable(true)}
-    className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
-  >
-    <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
-    <span>Live Feed</span>
-    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all -ml-1" />
-  </motion.button>
 
-  {/* Control Center */}
-  <MagneticButton 
-    onClick={onEnterPortal}
-    className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
-  >
-    <span className="relative z-10">Control Center</span>
-    <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-  </MagneticButton>
-
-  {/* Theme Toggle */}
-  <motion.button
-    onClick={toggleTheme}
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-    className="w-11 h-11 rounded-xl flex items-center justify-center backdrop-blur-xl border border-violet-500/20 bg-slate-800/40 dark:bg-slate-800/40 transition-all shadow-lg"
-  >
-    <motion.div
-      key={theme}
-      initial={{ rotate: -90, opacity: 0 }}
-      animate={{ rotate: 0, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      {theme === 'dark' ? (
-        <Sun className="w-5 h-5 text-yellow-400" />
-      ) : (
-        <Moon className="w-5 h-5 text-indigo-600" />
-      )}
-    </motion.div>
-  </motion.button>
-</div>
+          <div className="flex items-center gap-8">
+            <motion.button
+              whileHover={{ scale: 1.05, x: 5 }}
+              onClick={() => setShowTable(true)}
+              className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
+            >
+              <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
+              <span>Live Feed</span>
+              <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all -ml-1" />
+            </motion.button>
+            <MagneticButton
+              onClick={onEnterPortal}
+              className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
+            >
+              <span className="relative z-10">Control Center</span>
+              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </MagneticButton>
+          </div>
         </div>
       </motion.nav>
 
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-48 pb-32 px-6 z-10">
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={heroInView ? "visible" : "hidden"}
           className="max-w-7xl mx-auto text-center"
         >
-          <motion.div 
-            variants={itemVariants} 
+          <motion.div
+            variants={itemVariants}
             className="inline-flex items-center gap-3 px-6 py-3 glass-light rounded-full text-violet-300 text-[10px] font-black uppercase tracking-[0.25em] mb-12 shimmer"
           >
-            <motion.div 
+            <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
@@ -400,22 +374,22 @@ const toggleTheme = () => {
             <span>Bhopal Smart Infrastructure Node</span>
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </motion.div>
-          
-          <motion.h1 
-            variants={itemVariants} 
+
+          <motion.h1
+            variants={itemVariants}
             className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] mb-14"
           >
-            <motion.span 
+            <motion.span
               className="text-white text-glow inline-block"
               whileHover={{ scale: 1.05, textShadow: '0 0 60px rgba(139, 92, 246, 0.8)' }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
               HARMONIOUS
             </motion.span>
-            <br/>
-            <motion.span 
+            <br />
+            <motion.span
               className="gradient-text-animated inline-block"
-              animate={{ 
+              animate={{
                 backgroundPosition: ['0% center', '200% center'],
               }}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
@@ -425,14 +399,14 @@ const toggleTheme = () => {
             </motion.span>
           </motion.h1>
 
-          <motion.p 
-            variants={itemVariants} 
+          <motion.p
+            variants={itemVariants}
             className="max-w-2xl mx-auto text-slate-400 text-xl font-medium mb-16 leading-relaxed"
           >
             A gentle yet powerful gaze over Bhopal{' '}
-            <motion.span 
+            <motion.span
               className="text-violet-400 inline-block"
-              whileHover={{ 
+              whileHover={{
                 color: '#22d3ee',
                 textShadow: '0 0 20px rgba(34, 211, 238, 0.5)',
                 scale: 1.05
@@ -440,17 +414,17 @@ const toggleTheme = () => {
               transition={{ duration: 0.2 }}
             >
               Our AI
-            </motion.span>. 
+            </motion.span>.
             nodes identify infrastructure needs with precision, ensuring every street feels like home.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-6">
-            <MagneticButton 
+            <MagneticButton
               onClick={() => setShowTable(true)}
               className="magnetic-btn px-12 py-6 bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 text-white font-black rounded-3xl shadow-2xl shadow-violet-500/30 flex items-center gap-3 group relative overflow-hidden hover:shadow-violet-500/50 hover:shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-500"
             >
               {/* Animated background shimmer */}
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
               />
               {/* Ripple effect on hover */}
@@ -477,8 +451,8 @@ const toggleTheme = () => {
               {/* Gradient overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/20 to-violet-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
             </MagneticButton>
-            
-            <motion.div 
+
+            <motion.div
               whileHover={{ scale: 1.02, borderColor: 'rgba(139, 92, 246, 0.5)' }}
               className="px-10 py-6 glass-cyber rounded-3xl flex items-center gap-5 group border border-violet-500/20 transition-all duration-300"
             >
@@ -498,9 +472,9 @@ const toggleTheme = () => {
               </div>
             </motion.div>
           </motion.div>
-          
+
           {/* Scroll Indicator */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
@@ -512,13 +486,13 @@ const toggleTheme = () => {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-6 h-10 rounded-full border-2 border-violet-500/30 flex items-start justify-center p-2 group-hover:border-violet-500/60 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300"
             >
-              <motion.div 
+              <motion.div
                 animate={{ height: ['20%', '60%', '20%'] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="w-1 bg-violet-500 rounded-full group-hover:bg-cyan-400 transition-colors"
               />
             </motion.div>
-            <motion.span 
+            <motion.span
               className="text-[10px] font-bold uppercase tracking-widest text-slate-600 group-hover:text-violet-400 transition-colors"
               whileHover={{ letterSpacing: '0.3em' }}
             >
@@ -531,7 +505,7 @@ const toggleTheme = () => {
       {/* Stats Bento Grid */}
       <section className="py-24 px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -539,14 +513,14 @@ const toggleTheme = () => {
             className="grid grid-cols-1 md:grid-cols-4 gap-6"
           >
             {/* Large Card - Garbage */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               whileHover={{ scale: 1.02, rotateY: 5 }}
               className="md:col-span-2 p-10 glass-card rounded-[3rem] flex flex-col justify-between h-80 relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="flex justify-between items-start relative z-10">
-                <motion.div 
+                <motion.div
                   whileHover={{ rotate: 15, scale: 1.1 }}
                   className="p-5 bg-emerald-500/10 text-emerald-400 rounded-2xl border border-emerald-500/20"
                 >
@@ -566,13 +540,13 @@ const toggleTheme = () => {
             </motion.div>
 
             {/* Pothole Card */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               whileHover={{ scale: 1.02, rotateY: -5 }}
               className="p-10 glass-card rounded-[3rem] flex flex-col justify-between h-80 relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-orange-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <motion.div 
+              <motion.div
                 whileHover={{ rotate: -15, scale: 1.1 }}
                 className="p-5 bg-orange-500/10 text-orange-400 rounded-2xl border border-orange-500/20 w-fit"
               >
@@ -587,13 +561,13 @@ const toggleTheme = () => {
             </motion.div>
 
             {/* Resolution Rate Card */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
               className="p-10 bg-gradient-to-br from-violet-600 via-indigo-600 to-violet-700 rounded-[3rem] flex flex-col justify-between h-80 shadow-2xl shadow-violet-900/40 relative group overflow-hidden violet-glow"
             >
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L2c+PC9zdmc+')] opacity-30" />
-              <motion.div 
+              <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
                 className="p-5 bg-white/20 rounded-2xl border border-white/20 w-fit relative z-10 backdrop-blur-sm"
@@ -607,15 +581,15 @@ const toggleTheme = () => {
                 <p className="text-violet-200 font-bold uppercase text-xs tracking-[0.2em]">Resolution Score</p>
               </div>
               {/* Animated rings */}
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -bottom-20 -right-20 w-60 h-60 border border-white/10 rounded-full" 
+                className="absolute -bottom-20 -right-20 w-60 h-60 border border-white/10 rounded-full"
               />
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
                 transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                className="absolute -bottom-10 -right-10 w-40 h-40 border border-white/10 rounded-full" 
+                className="absolute -bottom-10 -right-10 w-40 h-40 border border-white/10 rounded-full"
               />
             </motion.div>
           </motion.div>
@@ -626,7 +600,7 @@ const toggleTheme = () => {
       <section className="py-32 px-6 relative z-10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -648,7 +622,7 @@ const toggleTheme = () => {
                 >
                   Civic
                 </motion.span>{' '}
-                <motion.span 
+                <motion.span
                   className="gradient-text-animated inline-block"
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 300 }}
@@ -660,11 +634,11 @@ const toggleTheme = () => {
                 Visualizing every coordinate and report stored within the civicresolve.db. Centered on Bhopal Metro.
               </p>
             </motion.div>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.02, borderColor: 'rgba(139, 92, 246, 0.5)' }}
               className="flex items-center gap-5 glass-cyber px-8 py-5 rounded-3xl border border-violet-500/20 transition-all duration-300"
             >
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="w-12 h-12 bg-violet-500/20 text-violet-400 rounded-2xl flex items-center justify-center border border-violet-500/20 relative"
@@ -679,71 +653,71 @@ const toggleTheme = () => {
             </motion.div>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="glass-cyber p-4 rounded-[4rem] overflow-hidden h-[750px] relative border border-violet-500/20 shadow-2xl violet-glow"
           >
             {/* Map Legend */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
               className="absolute top-12 right-12 z-10 glass-cyber px-8 py-8 rounded-[2.5rem] border border-violet-500/20 space-y-6 shadow-2xl"
             >
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-4 group cursor-pointer"
                 whileHover={{ x: 5, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.3 }}
                   className="w-5 h-5 rounded-full bg-orange-500 ring-4 ring-orange-500/20 shadow-lg shadow-orange-500/40 pulse-ring"
                 />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 group-hover:text-orange-400 transition-colors">Pending Analysis</span>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-4 group cursor-pointer"
                 whileHover={{ x: 5, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.3 }}
                   className="w-5 h-5 rounded-full bg-cyan-400 ring-4 ring-cyan-400/20 shadow-lg shadow-cyan-400/40"
                 />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 group-hover:text-cyan-400 transition-colors">Active Resolution</span>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-4 group cursor-pointer"
                 whileHover={{ x: 5, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.3 }}
                   className="w-5 h-5 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20 shadow-lg shadow-emerald-400/40"
                 />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 group-hover:text-emerald-400 transition-colors">Resolved</span>
               </motion.div>
               <div className="pt-6 border-t border-violet-500/20">
-                 <MagneticButton 
+                <MagneticButton
                   onClick={() => setShowTable(true)}
                   className="w-full py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:shadow-violet-500/30 hover:shadow-xl rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all"
-                 >
-                   Access Data Matrix
-                 </MagneticButton>
+                >
+                  Access Data Matrix
+                </MagneticButton>
               </div>
             </motion.div>
-            
+
             {/* Scanning line effect */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[3.5rem]">
-              <motion.div 
+              <motion.div
                 animate={{ top: ['0%', '100%', '0%'] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
               />
             </div>
-            
+
             <IncidentMap incidents={incidents} center={[23.2599, 77.4126]} zoom={13} />
           </motion.div>
         </div>
@@ -752,20 +726,20 @@ const toggleTheme = () => {
       {/* Dataset Summary Modal */}
       <AnimatePresence>
         {showTable && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-[#030712]/90 backdrop-blur-2xl" 
+              className="absolute inset-0 bg-[#030712]/90 backdrop-blur-2xl"
               onClick={() => setShowTable(false)}
             />
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, y: 60, opacity: 0, rotateX: 10 }}
               animate={{ scale: 1, y: 0, opacity: 1, rotateX: 0 }}
               exit={{ scale: 0.9, y: 60, opacity: 0, rotateX: -10 }}
@@ -776,7 +750,7 @@ const toggleTheme = () => {
               <div className="p-12 border-b border-violet-500/10 flex items-center justify-between bg-slate-900/40 backdrop-blur-xl">
                 <div>
                   <div className="flex items-center gap-4 mb-3">
-                    <motion.div 
+                    <motion.div
                       animate={{ rotate: [0, 360] }}
                       transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                       className="p-3 bg-violet-600/20 rounded-2xl border border-violet-500/30"
@@ -789,7 +763,7 @@ const toggleTheme = () => {
                   </div>
                   <p className="text-slate-400 text-lg font-medium">Real-time infrastructure intelligence feed from neural network.</p>
                 </div>
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setShowTable(false)}
@@ -802,22 +776,22 @@ const toggleTheme = () => {
               {/* Data Stats */}
               <div className="flex-1 overflow-y-auto p-12 hide-scrollbar bg-[#030712]/40">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                   <motion.div 
-                     whileHover={{ scale: 1.02 }}
-                     className="p-8 glass-card rounded-3xl border border-violet-500/10"
-                   >
-                      <BarChart3 className="w-6 h-6 text-cyan-400 mb-4" />
-                      <p className="text-3xl font-black text-white">{incidents.length}</p>
-                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Neural Indexed Records</p>
-                   </motion.div>
-                   <motion.div 
-                     whileHover={{ scale: 1.02 }}
-                     className="p-8 glass-card rounded-3xl border border-violet-500/10"
-                   >
-                      <Shield className="w-6 h-6 text-violet-400 mb-4" />
-                      <p className="text-3xl font-black text-white">Bhopal Central</p>
-                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Active Scanning Zone</p>
-                   </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="p-8 glass-card rounded-3xl border border-violet-500/10"
+                  >
+                    <BarChart3 className="w-6 h-6 text-cyan-400 mb-4" />
+                    <p className="text-3xl font-black text-white">{incidents.length}</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Neural Indexed Records</p>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="p-8 glass-card rounded-3xl border border-violet-500/10"
+                  >
+                    <Shield className="w-6 h-6 text-violet-400 mb-4" />
+                    <p className="text-3xl font-black text-white">Bhopal Central</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Active Scanning Zone</p>
+                  </motion.div>
                 </div>
 
                 <table className="w-full text-left border-separate border-spacing-y-3">
@@ -831,8 +805,8 @@ const toggleTheme = () => {
                   </thead>
                   <tbody>
                     {incidents.map((inc, index) => (
-                      <motion.tr 
-                        key={inc.id} 
+                      <motion.tr
+                        key={inc.id}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
@@ -857,7 +831,7 @@ const toggleTheme = () => {
                         </td>
                         <td className="px-8 py-5 glass-cyber rounded-r-2xl">
                           <div className="flex items-center gap-3">
-                            <motion.div 
+                            <motion.div
                               animate={inc.status === 'verified' || inc.status === 'completed' ? {} : { scale: [1, 1.2, 1] }}
                               transition={{ duration: 1, repeat: Infinity }}
                               className={`w-2.5 h-2.5 rounded-full ${inc.status === 'verified' || inc.status === 'completed' ? 'bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]' : 'bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.5)]'}`}
@@ -872,87 +846,87 @@ const toggleTheme = () => {
                   </tbody>
                 </table>
               </div>
-              
+
               <div className="p-8 border-t border-violet-500/10 bg-slate-900/40 text-center backdrop-blur-xl">
-                 <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-600 flex items-center justify-center gap-3">
-                   <motion.div 
-                     animate={{ opacity: [0.5, 1, 0.5] }}
-                     transition={{ duration: 2, repeat: Infinity }}
-                     className="w-2 h-2 rounded-full bg-cyan-400"
-                   />
-                   Neural Sync Active • Encrypted Channel v5.0
-                 </p>
+                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-600 flex items-center justify-center gap-3">
+                  <motion.div
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-2 h-2 rounded-full bg-cyan-400"
+                  />
+                  Neural Sync Active • Encrypted Channel v5.0
+                </p>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
       {/* About Section */}
-<section className="py-32 px-6 relative z-10 border-t border-violet-500/10 bg-[#030712]/80">
-  <div className="max-w-5xl mx-auto text-center space-y-8">
-    
-    <h2 className="text-5xl font-black tracking-tighter text-white">
-      About <span className="gradient-text-animated">CivicResolve</span>
-    </h2>
+      <section className="py-32 px-6 relative z-10 border-t border-violet-500/10 bg-[#030712]/80">
+        <div className="max-w-5xl mx-auto text-center space-y-8">
 
-    <p className="text-slate-400 text-lg leading-relaxed font-medium">
-      CivicResolve is an AI-powered civic intelligence platform designed to help
-      cities monitor, analyze, and resolve public infrastructure issues such as
-      garbage accumulation, potholes, and maintenance concerns.
-    </p>
+          <h2 className="text-5xl font-black tracking-tighter text-white">
+            About <span className="gradient-text-animated">CivicResolve</span>
+          </h2>
 
-    <p className="text-slate-500 text-base leading-relaxed max-w-3xl mx-auto">
-      Citizens and authorized users can report incidents, visualize real-time
-      data on an interactive map, and track resolution progress through a
-      centralized control center. The system leverages neural detection,
-      spatial mapping, and real-time analytics to improve transparency and
-      accelerate civic response.
-    </p>
+          <p className="text-slate-400 text-lg leading-relaxed font-medium">
+            CivicResolve is an AI-powered civic intelligence platform designed to help
+            cities monitor, analyze, and resolve public infrastructure issues such as
+            garbage accumulation, potholes, and maintenance concerns.
+          </p>
 
-    <div className="grid md:grid-cols-3 gap-8 pt-12 text-left">
-      
-      <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
-        <h4 className="text-violet-400 font-black uppercase tracking-widest text-xs mb-4">
-          Report
-        </h4>
-        <p className="text-slate-400 text-sm">
-          Submit infrastructure issues with location and category details.
-        </p>
-      </div>
+          <p className="text-slate-500 text-base leading-relaxed max-w-3xl mx-auto">
+            Citizens and authorized users can report incidents, visualize real-time
+            data on an interactive map, and track resolution progress through a
+            centralized control center. The system leverages neural detection,
+            spatial mapping, and real-time analytics to improve transparency and
+            accelerate civic response.
+          </p>
 
-      <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
-        <h4 className="text-cyan-400 font-black uppercase tracking-widest text-xs mb-4">
-          Track
-        </h4>
-        <p className="text-slate-400 text-sm">
-          Monitor status updates and resolution progress in real time.
-        </p>
-      </div>
+          <div className="grid md:grid-cols-3 gap-8 pt-12 text-left">
 
-      <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
-        <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs mb-4">
-          Resolve
-        </h4>
-        <p className="text-slate-400 text-sm">
-          Enable faster action through structured workflow and analytics.
-        </p>
-      </div>
+            <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
+              <h4 className="text-violet-400 font-black uppercase tracking-widest text-xs mb-4">
+                Report
+              </h4>
+              <p className="text-slate-400 text-sm">
+                Submit infrastructure issues with location and category details.
+              </p>
+            </div>
 
-    </div>
+            <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
+              <h4 className="text-cyan-400 font-black uppercase tracking-widest text-xs mb-4">
+                Track
+              </h4>
+              <p className="text-slate-400 text-sm">
+                Monitor status updates and resolution progress in real time.
+              </p>
+            </div>
 
-  </div>
-</section>
+            <div className="glass-card p-8 rounded-3xl border border-violet-500/10">
+              <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs mb-4">
+                Resolve
+              </h4>
+              <p className="text-slate-400 text-sm">
+                Enable faster action through structured workflow and analytics.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
 
       {/* Footer */}
-<footer className="py-24 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
+      <footer className="py-24 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
             <div className="md:col-span-2 space-y-12">
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-4 cursor-pointer group"
               >
-                <motion.div 
+                <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                   className="p-3 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl shadow-lg shadow-violet-500/30"
@@ -963,19 +937,19 @@ const toggleTheme = () => {
                   Civic<span className="gradient-text-animated">Resolve</span>
                 </span>
               </motion.div>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 className="text-slate-400 text-xl font-medium leading-relaxed max-w-lg"
               >
                 Next-generation urban intelligence platform. Empowering{' '}
-                <motion.span 
+                <motion.span
                   className="text-violet-400 inline-block"
-                  whileHover={{ 
-                    scale: 1.05, 
+                  whileHover={{
+                    scale: 1.05,
                     color: '#22d3ee',
-                    textShadow: '0 0 20px rgba(34, 211, 238, 0.5)' 
+                    textShadow: '0 0 20px rgba(34, 211, 238, 0.5)'
                   }}
                 >
                   Bhopal's smart city
@@ -983,37 +957,42 @@ const toggleTheme = () => {
                 initiative through neural vision and predictive analytics.
               </motion.p>
               <div className="flex gap-10">
-                 {[
-                   { name: 'Twitter', icon: Waves },
-                   { name: 'Journal', icon: Database },
-                   { name: 'Network', icon: Globe }
-                 ].map((s) => (
-                   <motion.a 
-                     key={s.name} 
-                     href="#" 
-                     whileHover={{ y: -5, scale: 1.1 }}
-                     whileTap={{ scale: 0.95 }}
-                     className="text-xs font-black uppercase tracking-widest text-slate-600 hover:text-violet-400 transition-colors flex items-center gap-2 group relative"
-                   >
-                     <motion.div
-                       whileHover={{ rotate: 360 }}
-                       transition={{ duration: 0.5 }}
-                     >
-                       <s.icon className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
-                     </motion.div>
-                     <span className="underline-reveal">{s.name}</span>
-                   </motion.a>
-                 ))}
+                {[
+                  { name: 'Email', icon: Mail, href: 'mailto:ag82620790@gmail.com' },
+                  { name: 'GitHub', icon: Github, href: 'https://github.com/Aditya20032004' }
+                ].map((s) => (
+                  <motion.a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{
+                      y: -5,
+                      scale: 1.1,
+                      textShadow: "0 0 15px rgba(167, 139, 250, 0.8)"
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="text-xs font-black uppercase tracking-widest text-slate-600 hover:text-violet-400 transition-colors flex items-center gap-2 group relative"
+                  >
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <s.icon className="w-4 h-4 group-hover:text-cyan-400 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] transition-all" />
+                    </motion.div>
+                    <span className="underline-reveal">{s.name}</span>
+                  </motion.a>
+                ))}
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-black uppercase tracking-[0.4em] text-[10px] text-violet-400/60 mb-10 flex items-center gap-2">
                 <Cpu className="w-3 h-3" />
                 Architecture
               </h4>
               <ul className="space-y-8 text-sm font-bold text-slate-500">
-                <motion.li 
+                <motion.li
                   whileHover={{ x: 10, scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
@@ -1024,7 +1003,7 @@ const toggleTheme = () => {
                     <span className="underline-reveal">Neural Mapping v5</span>
                   </a>
                 </motion.li>
-                <motion.li 
+                <motion.li
                   whileHover={{ x: 10, scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
@@ -1035,7 +1014,7 @@ const toggleTheme = () => {
                     <span className="underline-reveal">YOLO Detection Core</span>
                   </a>
                 </motion.li>
-                <motion.li 
+                <motion.li
                   whileHover={{ x: 10, scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
@@ -1054,14 +1033,14 @@ const toggleTheme = () => {
                 <Radio className="w-3 h-3" />
                 System State
               </h4>
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.02, borderColor: 'rgba(139, 92, 246, 0.3)' }}
                 className="p-10 glass-cyber rounded-[2.5rem] border border-violet-500/10 space-y-8 transition-all duration-300"
               >
                 <div>
                   <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mb-2">Neural Core</p>
                   <p className="text-xs font-black text-emerald-400 flex items-center gap-3">
-                    <motion.div 
+                    <motion.div
                       animate={{ scale: [1, 1.3, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
                       className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]"
@@ -1076,32 +1055,32 @@ const toggleTheme = () => {
               </motion.div>
             </div>
           </div>
-<div className="mt-6 flex justify-end items-center gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
-  <Link
-    href="/privacy-policy"
-    className="hover:text-violet-400 transition-colors duration-300"
-  >
-    Privacy
-  </Link>
+          <div className="mt-6 flex justify-end items-center gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-violet-400 transition-colors duration-300"
+            >
+              Privacy
+            </Link>
 
-  <Link
-    href="/terms-conditions"
-    className="hover:text-violet-400 transition-colors duration-300"
-  >
-    Terms
-  </Link>
+            <Link
+              href="/terms-conditions"
+              className="hover:text-violet-400 transition-colors duration-300"
+            >
+              Terms
+            </Link>
 
-  <Link
-    href="/disclaimer"
-    className="hover:text-violet-400 transition-colors duration-300"
-  >
-    Cookie
-  </Link>
-</div>
-          
-<div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
+            <Link
+              href="/disclaimer"
+              className="hover:text-violet-400 transition-colors duration-300"
+            >
+              Cookie
+            </Link>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
             <span>&copy; {new Date().getFullYear()} Bhopal Smart City Initiative</span>
-            <motion.span 
+            <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 3, repeat: Infinity }}
               className="text-violet-500/50 flex items-center gap-2"
