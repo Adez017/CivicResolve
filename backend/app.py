@@ -145,12 +145,22 @@ def create_app(config_name='default'):
 
         
     from backend.models import User
+    from werkzeug.security import generate_password_hash
 
+    # Create Tables and Default User
     with app.app_context():
         db.create_all()
 
         if not User.query.filter_by(username="admin").first():
-            db.session.add(User(username="admin", password="admin", role="admin"))
+            hashed_password = generate_password_hash("admin")
+
+            db.session.add(
+                User(
+                    username="admin",
+                    password=hashed_password,
+                    role="admin"
+                )
+            )
             db.session.commit()
         
     return app
