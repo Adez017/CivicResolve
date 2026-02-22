@@ -34,6 +34,13 @@ def jwt_required(f):
 
     return wrapper
 
+def generate_refresh_token(user):
+    payload = {
+        "user_id": user.id,
+        "type": "refresh",
+        "exp": datetime.utcnow() + timedelta(days=7)
+    }
+    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
 def role_required(required_role):
     def decorator(f):
