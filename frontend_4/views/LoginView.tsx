@@ -36,7 +36,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin, onBack }) => {
   return (
     <div className="min-h-screen mesh-gradient-warm flex items-center justify-center p-6 relative overflow-hidden">
       {onBack && (
-        <button 
+        <button
           onClick={onBack}
           className="absolute top-10 left-10 flex items-center gap-3 text-stone-500 hover:text-amber-400 transition-all font-black uppercase tracking-[0.3em] text-[10px] z-20 group"
         >

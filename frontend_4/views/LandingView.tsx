@@ -330,58 +330,58 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
               Civic<span className="gradient-text-animated">Resolve</span>
             </motion.span>
           </motion.div>
-          
+
           <div className="flex items-center gap-10">
 
-  {/* Navigation Links */}
-  <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400">
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400">
 
-    <a href="#home" className="hover:text-violet-400 transition-colors duration-300">
-      Home
-    </a>
+              <a href="#home" className="hover:text-violet-400 transition-colors duration-300">
+                Home
+              </a>
 
-    <a href="#features" className="hover:text-violet-400 transition-colors duration-300">
-      Features
-    </a>
+              <a href="#features" className="hover:text-violet-400 transition-colors duration-300">
+                Features
+              </a>
 
-    <a href="#about" className="hover:text-violet-400 transition-colors duration-300">
-      About
-    </a>
+              <a href="#about" className="hover:text-violet-400 transition-colors duration-300">
+                About
+              </a>
 
-    <a href="#contact" className="hover:text-violet-400 transition-colors duration-300">
-      Contact
-    </a>
+              <a href="#contact" className="hover:text-violet-400 transition-colors duration-300">
+                Contact
+              </a>
 
-  </div>
+            </div>
 
-  {/* Live Feed */}
-  <motion.button 
-    whileHover={{ scale: 1.05, x: 5 }}
-    onClick={() => setShowTable(true)}
-    className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
-  >
-    <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
-    <span>Live Feed</span>
-  </motion.button>
+            {/* Live Feed */}
+            <motion.button
+              whileHover={{ scale: 1.05, x: 5 }}
+              onClick={() => setShowTable(true)}
+              className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
+            >
+              <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
+              <span>Live Feed</span>
+            </motion.button>
 
-  {/* Control Center */}
-  <MagneticButton 
-    onClick={onEnterPortal}
-    className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
-  >
-    <span className="relative z-10">Control Center</span>
-    <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-  </MagneticButton>
+            {/* Control Center */}
+            <MagneticButton
+              onClick={onEnterPortal}
+              className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
+            >
+              <span className="relative z-10">Control Center</span>
+              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </MagneticButton>
 
-</div>
+          </div>
 
         </div>
       </motion.nav>
 
       {/* Hero Section */}
-<section id="home" ref={heroRef} className="relative pt-48 pb-32 px-6 z-10">
-        <motion.div 
+      <section id="home" ref={heroRef} className="relative pt-48 pb-32 px-6 z-10">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={heroInView ? "visible" : "hidden"}
@@ -529,7 +529,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Stats Bento Grid */}
-<section id="features" className="py-24 px-6 relative z-10">
+      <section id="features" className="py-24 px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             variants={containerVariants}
@@ -623,7 +623,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Interactive Map Section */}
-<section id="about" className="py-32 px-6 relative z-10">
+      <section id="about" className="py-32 px-6 relative z-10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
             <motion.div
@@ -944,7 +944,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Footer */}
-<footer id="contact" className="py-40 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
+      <footer id="contact" className="py-40 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
             <div className="md:col-span-2 space-y-12">
