@@ -104,17 +104,17 @@ const AdminView: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex glass-warm p-2 rounded-[2rem] w-fit border border-stone-800/50">
+      <div className="flex glass-warm p-3 rounded-[1rem] w-fit border border-stone-800/50">
         <button
           onClick={() => setActiveTab('dashboard')}
-          className={`flex items-center gap-3 px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 ${activeTab === 'dashboard' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
+          className={`flex items-center gap-3 px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 ${activeTab === 'dashboard' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
         >
           <LayoutDashboard className="w-5 h-5" />
           Analytics & Dispatch
         </button>
         <button
           onClick={() => setActiveTab('verification')}
-          className={`flex items-center gap-3 px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 relative ${activeTab === 'verification' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
+          className={`flex items-center gap-3 px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 relative ${activeTab === 'verification' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
         >
           <CheckSquare className="w-5 h-5" />
           Verification Gate
@@ -164,9 +164,9 @@ const AdminView: React.FC = () => {
               ))}
             </div>
 
-            <div className="lg:col-span-3 space-y-8">
+            <div className="lg:col-span-5 space-y-8">
               <motion.div
-                className="glass-warm p-4 rounded-[3.5rem] shadow-2xl border border-stone-800 h-[600px] relative overflow-hidden"
+                className="glass-warm p-4 rounded-[1rem] shadow-2xl border border-stone-800 h-[600px] relative overflow-hidden"
               >
                 <div className="absolute top-8 left-8 z-[10] glass-light px-6 py-3 rounded-2xl border border-white/5 shadow-xl flex items-center gap-3">
                   <MapIcon className="w-5 h-5 text-amber-500" />
@@ -225,10 +225,10 @@ const AdminView: React.FC = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-5 pb-14">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="glass-card p-10 rounded-[3.5rem] shadow-2xl border border-stone-800 sticky top-24"
+                className="glass-card p-10 rounded-[2rem] shadow-2xl border border-stone-800 sticky top-16"
               >
                 <div className="p-5 bg-amber-600 rounded-[1.5rem] w-fit mb-8 shadow-xl shadow-amber-900/40">
                   <Send className="w-8 h-8 text-white" />
@@ -266,7 +266,7 @@ const AdminView: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-6 bg-amber-600 text-white font-black rounded-3xl hover:bg-amber-500 transition-all shadow-2xl shadow-amber-900/40 flex items-center justify-center gap-3 group uppercase text-[10px] tracking-widest"
+                    className="w-full py-5 bg-amber-600 text-white font-black rounded-3xl hover:bg-amber-500 transition-all shadow-2xl shadow-amber-900/40 flex items-center justify-center gap-3 group uppercase text-[10px] tracking-widest"
                   >
                     Deploy Operator
                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

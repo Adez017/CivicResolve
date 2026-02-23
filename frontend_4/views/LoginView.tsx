@@ -49,12 +49,12 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin, onBack }) => {
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-600/10 rounded-full blur-[120px] animate-pulse"></div>
       <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-orange-700/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-      <div className="glass-warm p-10 md:p-16 rounded-[3.5rem] shadow-2xl w-full max-w-xl relative z-10 border border-stone-800 animate-in fade-in zoom-in duration-700">
+      <div className="glass-warm p-10 rounded-[3.5rem] shadow-2xl w-full max-w-xl relative z-10 border border-stone-800 animate-in fade-in zoom-in duration-700">
         <div className="flex flex-col items-center mb-14">
-          <div className="w-24 h-24 bg-amber-600 text-white rounded-[2rem] flex items-center justify-center mb-8 shadow-2xl shadow-amber-900/40 transform -rotate-6 hover:rotate-0 transition-all duration-500">
-            <Activity className="w-14 h-14" />
+          <div className="w-16 h-16 bg-amber-600 text-white rounded-[1rem] flex items-center justify-center mb-8 shadow-2xl shadow-amber-900/40 transform -rotate-6 hover:rotate-0 transition-all duration-500">
+            <Activity className="w-10 h-10" />
           </div>
-          <h1 className="text-5xl font-black text-stone-50 tracking-tighter mb-3">Operator Access</h1>
+          <h1 className="text-4xl font-black text-stone-50 tracking-tighter mb-3">Operator Access</h1>
           <p className="text-amber-500/60 font-black tracking-[0.3em] text-[10px] uppercase">Secure Infrastructure Tunnel</p>
         </div>
 
@@ -77,7 +77,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin, onBack }) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Operator ID"
-                className="w-full pl-16 pr-6 py-5 bg-stone-900/40 border border-stone-800 rounded-[1.5rem] focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all outline-none text-stone-100 placeholder-stone-700 font-bold"
+                className="w-full pl-16 pr-6 py-4 bg-stone-900/40 border border-stone-800 rounded-[1.5rem] focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all outline-none text-stone-100 placeholder-stone-700 font-bold"
                 required
               />
             </div>
@@ -94,7 +94,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin, onBack }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-16 pr-6 py-5 bg-stone-900/40 border border-stone-800 rounded-[1.5rem] focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all outline-none text-stone-100 placeholder-stone-700 font-bold"
+                className="w-full pl-16 pr-6 py-4 bg-stone-900/40 border border-stone-800 rounded-[1.5rem] focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all outline-none text-stone-100 placeholder-stone-700 font-bold"
                 required
               />
             </div>
@@ -103,7 +103,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin, onBack }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-6 bg-amber-600 text-white font-black rounded-[1.5rem] shadow-2xl shadow-amber-900/40 hover:bg-amber-500 active:scale-[0.98] transition-all flex items-center justify-center gap-4 group mt-4 overflow-hidden relative"
+            className="w-full py-4 bg-amber-600 text-white font-black rounded-[1.5rem] shadow-2xl shadow-amber-900/40 hover:bg-amber-500 active:scale-[0.98] transition-all flex items-center justify-center gap-4 group mt-4 overflow-hidden relative"
           >
             {isSubmitting ? (
               <Loader2 className="w-7 h-7 animate-spin" />
@@ -116,7 +116,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin, onBack }) => {
           </button>
         </form>
 
-        <div className="mt-16 text-center text-[10px] text-stone-700 font-black tracking-[0.5em] uppercase">
+        <div className="mt-10 text-center text-[10px] text-stone-700 font-black tracking-[0.5em] uppercase">
           Neural Interface Secured • v4.20
         </div>
       </div>

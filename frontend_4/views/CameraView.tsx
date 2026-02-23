@@ -85,7 +85,7 @@ const CameraView: React.FC<CameraViewProps> = ({ session }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="grid grid-cols-1 gap-12 items-start">
         {/* Frame Injection Terminal */}
         <div className="lg:col-span-8 space-y-10">
           <motion.div
@@ -157,7 +157,7 @@ const CameraView: React.FC<CameraViewProps> = ({ session }) => {
         </div>
 
         {/* Diagnostic Output */}
-        <div className="lg:col-span-4 space-y-10">
+        <div className="lg:col-span-8 space-y-10">
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}

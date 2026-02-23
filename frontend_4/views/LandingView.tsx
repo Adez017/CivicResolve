@@ -324,7 +324,6 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             </motion.div>
             <motion.span
               className="font-black text-2xl tracking-tighter text-white"
-              whileHover={{ letterSpacing: '0.05em' }}
               transition={{ duration: 0.3 }}
             >
               Civic<span className="gradient-text-animated">Resolve</span>
@@ -380,7 +379,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </motion.nav>
 
       {/* Hero Section */}
-      <section id="home" ref={heroRef} className="relative pt-48 pb-32 px-6 z-10">
+      <section id="home" ref={heroRef} className="relative pt-16 pb-32 px-6 z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -403,7 +402,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] mb-14"
+            className="text-7xl md:text-[8rem] font-black tracking-tighter leading-[0.8] mb-10"
           >
             <motion.span
               className="text-white text-glow inline-block"
@@ -447,7 +446,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
           <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-6">
             <MagneticButton
               onClick={() => setShowTable(true)}
-              className="magnetic-btn px-12 py-6 bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 text-white font-black rounded-3xl shadow-2xl shadow-violet-500/30 flex items-center gap-3 group relative overflow-hidden hover:shadow-violet-500/50 hover:shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-500"
+              className="magnetic-btn px-12 py-3 bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 text-white font-black rounded-3xl shadow-2xl shadow-violet-500/30 flex items-center gap-3 group relative overflow-hidden hover:shadow-violet-500/50 hover:shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-500"
             >
               {/* Animated background shimmer */}
               <motion.div
@@ -480,7 +479,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
             <motion.div
               whileHover={{ scale: 1.02, borderColor: 'rgba(139, 92, 246, 0.5)' }}
-              className="px-10 py-6 glass-cyber rounded-3xl flex items-center gap-5 group border border-violet-500/20 transition-all duration-300"
+              className="px-10 py-3 glass-cyber rounded-3xl flex items-center gap-5 group border border-violet-500/20 transition-all duration-300"
             >
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
@@ -491,7 +490,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
                 <div className="absolute inset-0 bg-cyan-400/30 rounded-full blur-md" />
               </motion.div>
               <div className="text-left">
-                <p className="text-3xl font-black leading-none text-white">
+                <p className="text-2xl font-black leading-none text-white">
                   {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : <AnimatedCounter value={stats.totalNodes} />}
                 </p>
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Live Nodes Active</p>
@@ -519,7 +518,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
               />
             </motion.div>
             <motion.span
-              className="text-[10px] font-bold uppercase tracking-widest text-slate-600 group-hover:text-violet-400 transition-colors"
+              className="text-[10px] mt-3 font-bold uppercase tracking-widest text-slate-600 group-hover:text-violet-400 transition-colors"
               whileHover={{ letterSpacing: '0.3em' }}
             >
               Scroll to explore
@@ -683,7 +682,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-cyber p-4 rounded-[4rem] overflow-hidden h-[750px] relative border border-violet-500/20 shadow-2xl violet-glow"
+            className="glass-cyber p-4 rounded-[1.5rem] overflow-hidden h-[750px] relative border border-violet-500/20 shadow-2xl violet-glow"
           >
             {/* Map Legend */}
             <motion.div
@@ -891,7 +890,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       <section className="py-32 px-6 relative z-10 border-t border-violet-500/10 bg-[#030712]/80">
         <div className="max-w-5xl mx-auto text-center space-y-8">
 
-          <h2 className="text-5xl font-black tracking-tighter text-white">
+          <h2 className="text-6xl font-black tracking-tighter text-white">
             About <span className="gradient-text-animated">CivicResolve</span>
           </h2>
 
@@ -944,7 +943,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="py-40 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
+      <footer id="contact" className="py-20 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
             <div className="md:col-span-2 space-y-12">
@@ -1017,7 +1016,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
                 <Cpu className="w-3 h-3" />
                 Architecture
               </h4>
-              <ul className="space-y-8 text-sm font-bold text-slate-500">
+              <ul className="space-y-8 text-sm font-bold text-slate-500 -ml-2">
                 <motion.li
                   whileHover={{ x: 10, scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 300 }}
@@ -1081,7 +1080,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
               </motion.div>
             </div>
           </div>
-          <div className="mt-6 flex justify-end items-center gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
+          <div className="mt-10 flex justify-end items-center gap-5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
             <Link
               href="/privacy-policy"
               className="hover:text-violet-400 transition-colors duration-300"
@@ -1104,7 +1103,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             </Link>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
+          <div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.4em]">
             <span>&copy; {new Date().getFullYear()} Bhopal Smart City Initiative</span>
             <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}

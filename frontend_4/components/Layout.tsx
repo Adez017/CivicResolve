@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ session, onLogout, children }) => {
   return (
     <div className="flex h-screen mesh-gradient-warm overflow-hidden text-stone-100">
       {/* Sidebar */}
-      <aside className="w-80 glass-warm flex flex-col hidden lg:flex border-r border-stone-800/50 relative z-50">
+      <aside className="w-80 glass-warm flex flex-col lg:flex border-r border-stone-800/50 relative">
         <div className="p-10">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
