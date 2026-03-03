@@ -2,9 +2,9 @@ import Navbar from "@/components/Navbar";
 
 export default function Disclaimer() {
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white">
-      <Navbar />
-      <div className="px-6 py-24 max-w-4xl mx-auto">
+    <div className="min-h-screen bg-[#0f172a] text-white px-6 py-20">
+      <div className="max-w-4xl mx-auto">
+
         {/* Page Heading */}
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-10 tracking-tight">
           Disclaimer
