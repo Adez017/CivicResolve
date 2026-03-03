@@ -28,10 +28,10 @@ interface IncidentMapProps {
   zoom?: number;
 }
 
-const IncidentMap: React.FC<IncidentMapProps> = ({ 
-  incidents, 
-  center = [12.9716, 77.5946], 
-  zoom = 13 
+const IncidentMap: React.FC<IncidentMapProps> = ({
+  incidents,
+  center = [12.9716, 77.5946],
+  zoom = 13
 }) => {
   return (
     <div className="h-full w-full rounded-xl overflow-hidden shadow-inner border border-gray-200">
@@ -41,8 +41,8 @@ const IncidentMap: React.FC<IncidentMapProps> = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {incidents.map((incident) => (
-          <Marker 
-            key={incident.id} 
+          <Marker
+            key={incident.id}
             position={[incident.location.lat, incident.location.lng]}
           >
             <Popup>

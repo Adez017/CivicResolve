@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#030712]/80 border-b border-violet-500/10">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        
+
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <div className="p-2 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-lg">

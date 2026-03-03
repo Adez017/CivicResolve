@@ -29,9 +29,9 @@ const Layout: React.FC<LayoutProps> = ({ session, onLogout, children }) => {
   return (
     <div className="flex h-screen mesh-gradient-warm overflow-hidden text-stone-100">
       {/* Sidebar */}
-      <aside className="w-80 glass-warm flex flex-col hidden lg:flex border-r border-stone-800/50 relative z-50">
+      <aside className="w-80 glass-warm flex flex-col lg:flex border-r border-stone-800/50 relative">
         <div className="p-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3 font-black text-2xl"
@@ -46,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ session, onLogout, children }) => {
         <nav className="flex-1 px-6 space-y-10 mt-4">
           <div className="space-y-4">
             <p className="px-4 text-[10px] font-black text-stone-500 uppercase tracking-[0.4em]">Active Identity</p>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.02 }}
               className="p-6 glass-card rounded-[2rem] border border-stone-700/50"
             >
@@ -95,24 +95,24 @@ const Layout: React.FC<LayoutProps> = ({ session, onLogout, children }) => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden relative z-10">
         <header className="glass-warm border-b border-stone-800/50 h-20 flex items-center justify-between px-10 flex-shrink-0 z-40">
-           <div className="flex items-center gap-3 lg:hidden">
-              <div className="p-2 bg-amber-600 rounded-lg">
-                <Activity className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-black text-stone-50 tracking-tighter">CivicResolve</span>
-           </div>
-           
-           <div className="hidden lg:flex items-center gap-6">
-              <div className="glass-light px-4 py-1.5 rounded-full text-[9px] font-black text-emerald-500 uppercase tracking-[0.3em] border border-emerald-500/20 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                System Node Active
-              </div>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Bhopal Hub • Central Time: {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-           </div>
+          <div className="flex items-center gap-3 lg:hidden">
+            <div className="p-2 bg-amber-600 rounded-lg">
+              <Activity className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-black text-stone-50 tracking-tighter">CivicResolve</span>
+          </div>
 
-           <button className="lg:hidden p-3 glass-warm rounded-xl text-stone-400">
-              <Menu className="w-5 h-5" />
-           </button>
+          <div className="hidden lg:flex items-center gap-6">
+            <div className="glass-light px-4 py-1.5 rounded-full text-[9px] font-black text-emerald-500 uppercase tracking-[0.3em] border border-emerald-500/20 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+              System Node Active
+            </div>
+            <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Bhopal Hub • Central Time: {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          </div>
+
+          <button className="lg:hidden p-3 glass-warm rounded-xl text-stone-400">
+            <Menu className="w-5 h-5" />
+          </button>
         </header>
 
         <main className="flex-1 overflow-y-auto hide-scrollbar">

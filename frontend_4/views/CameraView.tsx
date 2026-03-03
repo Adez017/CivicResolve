@@ -66,29 +66,29 @@ const CameraView: React.FC<CameraViewProps> = ({ session }) => {
           <h1 className="text-5xl font-black text-stone-50 tracking-tighter flex items-center gap-4">
             <div className="p-3 bg-amber-600 rounded-2xl shadow-xl shadow-amber-900/30">
               <Camera className="w-10 h-10 text-white" />
-            </div> 
+            </div>
             Neural Node
           </h1>
           <p className="text-stone-500 font-bold uppercase tracking-[0.4em] text-[10px] mt-4 ml-2">Active Surveillance Protocol v4.0</p>
         </motion.div>
-        
+
         <div className="flex items-center gap-6 glass-warm px-8 py-5 rounded-[2rem] border border-stone-800 shadow-2xl">
-           <div className="flex items-center gap-3">
-             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-100">{session.username}</span>
-           </div>
-           <div className="w-px h-6 bg-stone-800"></div>
-           <div className="flex items-center gap-2 text-stone-500">
-              <Globe className="w-4 h-4" />
-              <span className="text-[10px] font-bold tracking-widest uppercase">23.2599° N, 77.4126° E</span>
-           </div>
+          <div className="flex items-center gap-3">
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-100">{session.username}</span>
+          </div>
+          <div className="w-px h-6 bg-stone-800"></div>
+          <div className="flex items-center gap-2 text-stone-500">
+            <Globe className="w-4 h-4" />
+            <span className="text-[10px] font-bold tracking-widest uppercase">23.2599° N, 77.4126° E</span>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="grid grid-cols-1 gap-12 items-start">
         {/* Frame Injection Terminal */}
         <div className="lg:col-span-8 space-y-10">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.01 }}
             className="glass-warm p-3 rounded-[4rem] shadow-2xl border border-stone-800 relative group overflow-hidden"
           >
@@ -103,13 +103,13 @@ const CameraView: React.FC<CameraViewProps> = ({ session }) => {
                   <img src={preview} alt="Frame" className="w-full h-full object-cover" />
                   {analyzing && <div className="scan-line !bg-gradient-to-r !from-transparent !via-amber-500 !to-transparent !shadow-amber-500/80"></div>}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-transparent to-transparent opacity-60"></div>
-                  
+
                   {/* Decorative Neural Grid Overlay */}
                   <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#fbbf24_1px,transparent_1px)] [background-size:32px_32px]"></div>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center w-full h-full space-y-8 group/upload">
-                  <motion.div 
+                  <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 4, repeat: Infinity }}
                     className="w-28 h-28 glass rounded-[2.5rem] flex items-center justify-center text-stone-700 group-hover/upload:bg-amber-600 group-hover/upload:text-white group-hover/upload:border-amber-500 transition-all duration-500 border border-stone-800"
@@ -146,7 +146,7 @@ const CameraView: React.FC<CameraViewProps> = ({ session }) => {
                 </>
               )}
             </motion.button>
-            
+
             <button
               onClick={() => { setFile(null); setPreview(null); setResult(null); }}
               className="px-10 py-7 glass-warm text-stone-500 border border-stone-800 font-black rounded-[2.5rem] hover:text-stone-300 transition-all uppercase tracking-[0.3em] text-[10px]"
@@ -157,94 +157,94 @@ const CameraView: React.FC<CameraViewProps> = ({ session }) => {
         </div>
 
         {/* Diagnostic Output */}
-        <div className="lg:col-span-4 space-y-10">
-           <motion.div 
-             initial={{ opacity: 0, x: 20 }}
-             animate={{ opacity: 1, x: 0 }}
-             className="glass-card p-10 rounded-[3.5rem] border border-stone-800 shadow-2xl h-full flex flex-col"
-           >
-              <h2 className="text-2xl font-black text-stone-50 mb-10 flex items-center gap-4 tracking-tighter">
-                <div className="p-3 glass rounded-xl border border-white/5">
-                  <Cpu className="w-6 h-6 text-amber-500" />
-                </div> 
-                Diagnostic Hub
-              </h2>
+        <div className="lg:col-span-8 space-y-10">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="glass-card p-10 rounded-[3.5rem] border border-stone-800 shadow-2xl h-full flex flex-col"
+          >
+            <h2 className="text-2xl font-black text-stone-50 mb-10 flex items-center gap-4 tracking-tighter">
+              <div className="p-3 glass rounded-xl border border-white/5">
+                <Cpu className="w-6 h-6 text-amber-500" />
+              </div>
+              Diagnostic Hub
+            </h2>
 
-              <div className="space-y-8 flex-1">
-                {!result && !analyzing && (
-                  <div className="flex flex-col items-center justify-center py-24 text-center space-y-8 opacity-30 group">
-                    <Hexagon className="w-24 h-24 text-stone-700 animate-float-soft" />
-                    <p className="text-stone-600 font-black uppercase tracking-[0.4em] text-[10px]">Awaiting Data Injection</p>
-                  </div>
-                )}
+            <div className="space-y-8 flex-1">
+              {!result && !analyzing && (
+                <div className="flex flex-col items-center justify-center py-24 text-center space-y-8 opacity-30 group">
+                  <Hexagon className="w-24 h-24 text-stone-700 animate-float-soft" />
+                  <p className="text-stone-600 font-black uppercase tracking-[0.4em] text-[10px]">Awaiting Data Injection</p>
+                </div>
+              )}
 
-                <AnimatePresence>
-                  {analyzing && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-8"
-                    >
-                       {[1,2,3,4].map(i => (
-                         <div key={i} className="h-16 glass-light rounded-2xl border border-white/5 flex items-center px-6">
-                           <div className="w-4 h-4 bg-amber-500/20 rounded-full mr-4 border border-amber-500/40"></div>
-                           <div className="h-2 flex-1 bg-stone-800 rounded-full overflow-hidden">
-                              <motion.div 
-                                initial={{ x: '-100%' }}
-                                animate={{ x: '100%' }}
-                                transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', delay: i * 0.2 }}
-                                className="w-full h-full bg-amber-500/40"
-                              />
-                           </div>
-                         </div>
-                       ))}
-                       <p className="text-center text-[10px] font-black text-amber-500 uppercase tracking-[0.5em] mt-12 animate-pulse">Running Neural Inference...</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {result && !analyzing && (
-                  <motion.div 
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className={`p-10 rounded-[3rem] border ${result.type === 'error' ? 'bg-orange-500/5 border-orange-500/20 text-orange-200' : 'bg-emerald-500/5 border-emerald-500/20 text-emerald-200'} shadow-2xl amber-glow`}
+              <AnimatePresence>
+                {analyzing && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="space-y-8"
                   >
-                    <div className="flex flex-col items-center text-center space-y-8">
-                      <div className={`w-24 h-24 rounded-[2.5rem] flex items-center justify-center ${result.type === 'error' ? 'bg-orange-500 text-white shadow-2xl shadow-orange-900/50' : 'bg-emerald-500 text-white shadow-2xl shadow-emerald-900/50'}`}>
-                        {result.type === 'error' ? <ShieldAlert className="w-12 h-12" /> : <CheckCircle2 className="w-12 h-12" />}
+                    {[1, 2, 3, 4].map(i => (
+                      <div key={i} className="h-16 glass-light rounded-2xl border border-white/5 flex items-center px-6">
+                        <div className="w-4 h-4 bg-amber-500/20 rounded-full mr-4 border border-amber-500/40"></div>
+                        <div className="h-2 flex-1 bg-stone-800 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ x: '-100%' }}
+                            animate={{ x: '100%' }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', delay: i * 0.2 }}
+                            className="w-full h-full bg-amber-500/40"
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-4">
-                        <h4 className="font-black text-3xl tracking-tighter leading-none text-white">
-                          {result.type === 'error' ? 'Detection Conflict' : 'Clear Sweep'}
-                        </h4>
-                        <p className="text-xs font-bold opacity-70 leading-relaxed uppercase tracking-[0.1em]">
-                          {result.msg}
-                        </p>
-                      </div>
-                      <div className="pt-8 w-full border-t border-white/5 flex justify-between items-center text-[9px] font-black uppercase tracking-[0.4em] opacity-40">
-                        <span>Confidence: 94.2%</span>
-                        <span>v4.20-Engine</span>
-                      </div>
-                    </div>
+                    ))}
+                    <p className="text-center text-[10px] font-black text-amber-500 uppercase tracking-[0.5em] mt-12 animate-pulse">Running Neural Inference...</p>
                   </motion.div>
                 )}
-              </div>
+              </AnimatePresence>
 
-              <div className="mt-12 p-8 glass-warm rounded-[2.5rem] border border-stone-800/50 space-y-8">
-                 <h4 className="text-[10px] font-black text-stone-600 uppercase tracking-[0.4em]">Node Diagnostics</h4>
-                 <div className="space-y-5">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Signal State</span>
-                      <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Master Synchronized</span>
+              {result && !analyzing && (
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className={`p-10 rounded-[3rem] border ${result.type === 'error' ? 'bg-orange-500/5 border-orange-500/20 text-orange-200' : 'bg-emerald-500/5 border-emerald-500/20 text-emerald-200'} shadow-2xl amber-glow`}
+                >
+                  <div className="flex flex-col items-center text-center space-y-8">
+                    <div className={`w-24 h-24 rounded-[2.5rem] flex items-center justify-center ${result.type === 'error' ? 'bg-orange-500 text-white shadow-2xl shadow-orange-900/50' : 'bg-emerald-500 text-white shadow-2xl shadow-emerald-900/50'}`}>
+                      {result.type === 'error' ? <ShieldAlert className="w-12 h-12" /> : <CheckCircle2 className="w-12 h-12" />}
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Latency</span>
-                      <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">12ms Hub-Sync</span>
+                    <div className="space-y-4">
+                      <h4 className="font-black text-3xl tracking-tighter leading-none text-white">
+                        {result.type === 'error' ? 'Detection Conflict' : 'Clear Sweep'}
+                      </h4>
+                      <p className="text-xs font-bold opacity-70 leading-relaxed uppercase tracking-[0.1em]">
+                        {result.msg}
+                      </p>
                     </div>
-                 </div>
+                    <div className="pt-8 w-full border-t border-white/5 flex justify-between items-center text-[9px] font-black uppercase tracking-[0.4em] opacity-40">
+                      <span>Confidence: 94.2%</span>
+                      <span>v4.20-Engine</span>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+
+            <div className="mt-12 p-8 glass-warm rounded-[2.5rem] border border-stone-800/50 space-y-8">
+              <h4 className="text-[10px] font-black text-stone-600 uppercase tracking-[0.4em]">Node Diagnostics</h4>
+              <div className="space-y-5">
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Signal State</span>
+                  <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Master Synchronized</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Latency</span>
+                  <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">12ms Hub-Sync</span>
+                </div>
               </div>
-           </motion.div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
