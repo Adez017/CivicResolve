@@ -6,7 +6,7 @@ import {
   Activity, ShieldCheck, MapPin, Trash2, AlertTriangle,
   ArrowRight, CheckCircle2, Globe, Users, Loader2,
   X, Database, LayoutList, BarChart3, Filter, Sparkles,
-  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github
+  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github, Menu
 } from 'lucide-react';
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
@@ -26,6 +26,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
   const [incidents, setIncidents] = useState<IncidentReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTable, setShowTable] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [stats, setStats] = useState({
     garbage: 0,
     potholes: 0,
@@ -307,9 +308,9 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.2 }}
         style={{ background: navBackground }}
-        className="fixed top-0 inset-x-0 h-20 z-50 px-6 border-b border-violet-500/10 backdrop-blur-xl"
+        className="fixed top-0 inset-x-0 h-20 z-50 px-4 md:px-6 border-b border-violet-500/10 backdrop-blur-xl"
       >
-        <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
+        <div className="max-w-7xl mx-auto h-full flex items-center justify-between gap-2">
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="flex items-center gap-3 cursor-pointer group"
@@ -317,9 +318,9 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="p-2.5 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-violet-500/30 relative"
+              className="p-2 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-violet-500/30 relative"
             >
-              <Activity className="w-5 h-5 text-white relative z-10" />
+              <Activity className="w-4 h-4 md:w-5 md:h-5 text-white relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-cyan-400 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
             <motion.span
@@ -376,6 +377,61 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
           </div>
 
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#030712]/95 border-b border-violet-500/10 overflow-hidden"
+            >
+              <div className="flex flex-col p-6 gap-6 text-sm font-bold text-slate-400">
+                <a href="#home" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>Home</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <a href="#features" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>Features</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>About</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>Contact</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <button
+                  onClick={() => {
+                    setShowTable(true);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex items-center justify-between text-left group hover:text-cyan-400 transition-all border-b border-violet-500/10 pb-4"
+                >
+                  <div className="flex items-center gap-2">
+                    <Eye className="w-4 h-4" />
+                    <span>Live Feed</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+
+                <button
+                  onClick={() => {
+                    onEnterPortal();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-lg flex items-center justify-center gap-2 group"
+                >
+                  <span>Access Portal</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Hero Section */}
@@ -388,7 +444,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
         >
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-3 px-6 py-3 glass-light rounded-full text-violet-300 text-[10px] font-black uppercase tracking-[0.25em] mb-12 shimmer"
+            className="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 glass-light rounded-full text-violet-300 text-[8px] md:text-[10px] font-black uppercase tracking-[0.15em] md:tracking-[0.25em] mb-8 md:mb-12 shimmer"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -426,7 +482,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
           <motion.p
             variants={itemVariants}
-            className="max-w-2xl mx-auto text-slate-400 text-xl font-medium mb-16 leading-relaxed"
+            className="max-w-2xl mx-auto text-slate-400 text-base md:text-xl font-medium mb-10 md:mb-16 leading-relaxed px-4"
           >
             A gentle yet powerful gaze over Bhopal{' '}
             <motion.span
@@ -443,7 +499,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             nodes identify infrastructure needs with precision, ensuring every street feels like home.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-6">
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4 md:gap-6 px-4">
             <MagneticButton
               onClick={() => setShowTable(true)}
               className="magnetic-btn px-12 py-3 bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 text-white font-black rounded-3xl shadow-2xl shadow-violet-500/30 flex items-center gap-3 group relative overflow-hidden hover:shadow-violet-500/50 hover:shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-500"

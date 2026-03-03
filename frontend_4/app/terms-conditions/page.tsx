@@ -1,7 +1,10 @@
+import Navbar from "@/components/Navbar";
+
 export default function TermsConditions() {
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white px-6 py-16">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="min-h-screen bg-[#0f172a] text-white">
+      <Navbar />
+      <div className="px-6 py-24 max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-bold mb-6">Terms & Conditions</h1>
 
         <p>
