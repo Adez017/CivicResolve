@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from backend.models import db, User
-from backend.utils.auth import generate_token, generate_refresh_token
+from backend.utils.auth import generate_token, generate_refresh_token, SECRET_KEY
+from werkzeug.security import check_password_hash
 import jwt
-from backend.utils.auth import SECRET_KEY
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -14,9 +14,10 @@ def login():
     username = data.get("username")
     password = data.get("password")
 
-    user = User.query.filter_by(username=username, password=password).first()
+    user = User.query.filter_by(username=username).first()
 
-    if not user:
+    # Verify hashed password
+    if not user or not check_password_hash(user.password, password):
         return jsonify({"message": "Invalid credentials"}), 401
 
     access_token = generate_token(user)
@@ -29,6 +30,7 @@ def login():
         "access_token": access_token,
         "refresh_token": refresh_token
     })
+
 
 @auth_bp.route("/refresh", methods=["POST"])
 def refresh():
