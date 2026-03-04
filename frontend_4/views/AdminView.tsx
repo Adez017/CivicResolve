@@ -79,7 +79,7 @@ const AdminView: React.FC = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -104,17 +104,17 @@ const AdminView: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex glass-warm p-2 rounded-[2rem] w-fit border border-stone-800/50">
+      <div className="flex glass-warm p-3 rounded-[1rem] w-fit border border-stone-800/50">
         <button
           onClick={() => setActiveTab('dashboard')}
-          className={`flex items-center gap-3 px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 ${activeTab === 'dashboard' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
+          className={`flex items-center gap-3 px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 ${activeTab === 'dashboard' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
         >
           <LayoutDashboard className="w-5 h-5" />
           Analytics & Dispatch
         </button>
         <button
           onClick={() => setActiveTab('verification')}
-          className={`flex items-center gap-3 px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 relative ${activeTab === 'verification' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
+          className={`flex items-center gap-3 px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 relative ${activeTab === 'verification' ? 'bg-amber-600 text-white shadow-xl shadow-amber-900/40' : 'text-stone-500 hover:text-stone-300'}`}
         >
           <CheckSquare className="w-5 h-5" />
           Verification Gate
@@ -131,7 +131,7 @@ const AdminView: React.FC = () => {
 
       <AnimatePresence mode="wait">
         {activeTab === 'dashboard' ? (
-          <motion.div 
+          <motion.div
             key="dashboard"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -145,7 +145,7 @@ const AdminView: React.FC = () => {
                 { label: 'Total Lifecycle', val: incidents.length, icon: Database, color: 'text-amber-500', bg: 'bg-amber-500/10' },
                 { label: 'Node Health', val: '98.4%', icon: Activity, color: 'text-white', bg: 'bg-amber-600', dark: true }
               ].map((stat, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   whileHover={{ y: -5 }}
                   className={`glass-card p-8 rounded-[2.5rem] border border-stone-800 shadow-xl flex flex-col justify-between h-52 ${stat.dark ? 'bg-amber-600 !border-amber-500/50' : ''}`}
@@ -164,9 +164,9 @@ const AdminView: React.FC = () => {
               ))}
             </div>
 
-            <div className="lg:col-span-3 space-y-8">
-              <motion.div 
-                className="glass-warm p-4 rounded-[3.5rem] shadow-2xl border border-stone-800 h-[600px] relative overflow-hidden"
+            <div className="lg:col-span-5 space-y-8">
+              <motion.div
+                className="glass-warm p-4 rounded-[1rem] shadow-2xl border border-stone-800 h-[600px] relative overflow-hidden"
               >
                 <div className="absolute top-8 left-8 z-[10] glass-light px-6 py-3 rounded-2xl border border-white/5 shadow-xl flex items-center gap-3">
                   <MapIcon className="w-5 h-5 text-amber-500" />
@@ -182,60 +182,60 @@ const AdminView: React.FC = () => {
               </motion.div>
 
               <div className="glass-warm rounded-[3rem] border border-stone-800 shadow-xl overflow-hidden">
-                 <div className="p-10 border-b border-stone-800/50 flex items-center justify-between bg-white/5">
-                    <h3 className="text-2xl font-black text-stone-50 tracking-tighter">Real-time Feed</h3>
-                    <button className="text-amber-500 text-[10px] font-black uppercase tracking-widest hover:text-amber-400 transition-colors">Export Ledger</button>
-                 </div>
-                 <div className="overflow-x-auto p-4">
-                   <table className="w-full text-left border-separate border-spacing-y-2">
-                     <thead>
-                       <tr className="text-[10px] font-black text-stone-600 uppercase tracking-[0.3em]">
-                         <th className="px-8 py-4">Incident</th>
-                         <th className="px-8 py-4">Classification</th>
-                         <th className="px-8 py-4">Status</th>
-                         <th className="px-8 py-4">Personnel</th>
-                       </tr>
-                     </thead>
-                     <tbody>
-                       {incidents.slice(0, 8).map((i) => (
-                         <tr key={i.id} className="group hover:bg-white/5 transition-colors cursor-default">
-                           <td className="px-8 py-6 glass-warm rounded-l-2xl border-r-0 border-stone-800">
-                             <p className="font-black text-amber-500 tracking-tight text-lg">#{i.id}</p>
-                             <p className="text-[10px] text-stone-500 font-bold uppercase truncate max-w-[150px]">{i.location.address}</p>
-                           </td>
-                           <td className="px-8 py-6 glass-warm border-x-0 border-stone-800">
-                             <span className="px-4 py-1.5 glass-light text-amber-200 text-[9px] font-black uppercase rounded-xl border border-white/5 tracking-widest">
-                               {i.type}
-                             </span>
-                           </td>
-                           <td className="px-8 py-6 glass-warm border-x-0 border-stone-800">
-                             <div className="flex items-center gap-3">
-                               <div className={`w-2 h-2 rounded-full ${i.status === 'pending' ? 'bg-orange-500' : i.status === 'completed' ? 'bg-amber-400' : 'bg-emerald-500'} animate-pulse`}></div>
-                               <span className="text-[10px] font-black text-stone-200 uppercase tracking-widest">{i.status}</span>
-                             </div>
-                           </td>
-                           <td className="px-8 py-6 glass-warm rounded-r-2xl border-l-0 border-stone-800 text-[10px] font-black text-stone-500 italic tracking-wider">
-                             {i.assigned_to || 'WAITING'}
-                           </td>
-                         </tr>
-                       ))}
-                     </tbody>
-                   </table>
-                 </div>
+                <div className="p-10 border-b border-stone-800/50 flex items-center justify-between bg-white/5">
+                  <h3 className="text-2xl font-black text-stone-50 tracking-tighter">Real-time Feed</h3>
+                  <button className="text-amber-500 text-[10px] font-black uppercase tracking-widest hover:text-amber-400 transition-colors">Export Ledger</button>
+                </div>
+                <div className="overflow-x-auto p-4">
+                  <table className="w-full text-left border-separate border-spacing-y-2">
+                    <thead>
+                      <tr className="text-[10px] font-black text-stone-600 uppercase tracking-[0.3em]">
+                        <th className="px-8 py-4">Incident</th>
+                        <th className="px-8 py-4">Classification</th>
+                        <th className="px-8 py-4">Status</th>
+                        <th className="px-8 py-4">Personnel</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {incidents.slice(0, 8).map((i) => (
+                        <tr key={i.id} className="group hover:bg-white/5 transition-colors cursor-default">
+                          <td className="px-8 py-6 glass-warm rounded-l-2xl border-r-0 border-stone-800">
+                            <p className="font-black text-amber-500 tracking-tight text-lg">#{i.id}</p>
+                            <p className="text-[10px] text-stone-500 font-bold uppercase truncate max-w-[150px]">{i.location.address}</p>
+                          </td>
+                          <td className="px-8 py-6 glass-warm border-x-0 border-stone-800">
+                            <span className="px-4 py-1.5 glass-light text-amber-200 text-[9px] font-black uppercase rounded-xl border border-white/5 tracking-widest">
+                              {i.type}
+                            </span>
+                          </td>
+                          <td className="px-8 py-6 glass-warm border-x-0 border-stone-800">
+                            <div className="flex items-center gap-3">
+                              <div className={`w-2 h-2 rounded-full ${i.status === 'pending' ? 'bg-orange-500' : i.status === 'completed' ? 'bg-amber-400' : 'bg-emerald-500'} animate-pulse`}></div>
+                              <span className="text-[10px] font-black text-stone-200 uppercase tracking-widest">{i.status}</span>
+                            </div>
+                          </td>
+                          <td className="px-8 py-6 glass-warm rounded-r-2xl border-l-0 border-stone-800 text-[10px] font-black text-stone-500 italic tracking-wider">
+                            {i.assigned_to || 'WAITING'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
-            <div className="lg:col-span-1">
-              <motion.div 
+            <div className="lg:col-span-5 pb-14">
+              <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="glass-card p-10 rounded-[3.5rem] shadow-2xl border border-stone-800 sticky top-24"
+                className="glass-card p-10 rounded-[2rem] shadow-2xl border border-stone-800 sticky top-16"
               >
                 <div className="p-5 bg-amber-600 rounded-[1.5rem] w-fit mb-8 shadow-xl shadow-amber-900/40">
                   <Send className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-3xl font-black mb-2 tracking-tighter text-stone-50">Rapid Dispatch</h3>
                 <p className="text-stone-500 text-sm font-medium mb-10 leading-relaxed">Direct personnel coordination for active Bhopal alerts.</p>
-                
+
                 <form onSubmit={handleAssign} className="space-y-8">
                   <div className="space-y-3">
                     <label className="text-[10px] font-black text-stone-600 uppercase tracking-[0.4em] ml-2">Target Alert</label>
@@ -251,7 +251,7 @@ const AdminView: React.FC = () => {
                       ))}
                     </select>
                   </div>
-                  
+
                   <div className="space-y-3">
                     <label className="text-[10px] font-black text-stone-600 uppercase tracking-[0.4em] ml-2">Field Operator</label>
                     <input
@@ -266,7 +266,7 @@ const AdminView: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-6 bg-amber-600 text-white font-black rounded-3xl hover:bg-amber-500 transition-all shadow-2xl shadow-amber-900/40 flex items-center justify-center gap-3 group uppercase text-[10px] tracking-widest"
+                    className="w-full py-5 bg-amber-600 text-white font-black rounded-3xl hover:bg-amber-500 transition-all shadow-2xl shadow-amber-900/40 flex items-center justify-center gap-3 group uppercase text-[10px] tracking-widest"
                   >
                     Deploy Operator
                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -276,7 +276,7 @@ const AdminView: React.FC = () => {
             </div>
           </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             key="verification"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -295,8 +295,8 @@ const AdminView: React.FC = () => {
               </div>
             ) : (
               verificationQueue.map((t) => (
-                <motion.div 
-                  key={t.id} 
+                <motion.div
+                  key={t.id}
                   whileHover={{ y: -10 }}
                   className="glass-card p-10 rounded-[3.5rem] border border-stone-800 shadow-2xl flex flex-col h-full relative overflow-hidden group"
                 >

@@ -6,7 +6,7 @@ import {
   Activity, ShieldCheck, MapPin, Trash2, AlertTriangle,
   ArrowRight, CheckCircle2, Globe, Users, Loader2,
   X, Database, LayoutList, BarChart3, Filter, Sparkles,
-  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github
+  Zap, Eye, ChevronRight, Star, Cpu, Radio, Shield, Waves, Mail, Github, Menu
 } from 'lucide-react';
 import { IncidentReport } from '../types';
 import { api, endpoints } from '../lib/api';
@@ -26,6 +26,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
   const [incidents, setIncidents] = useState<IncidentReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTable, setShowTable] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [stats, setStats] = useState({
     garbage: 0,
     potholes: 0,
@@ -307,9 +308,9 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.2 }}
         style={{ background: navBackground }}
-        className="fixed top-0 inset-x-0 h-20 z-50 px-6 border-b border-violet-500/10 backdrop-blur-xl"
+        className="fixed top-0 inset-x-0 h-20 z-50 px-4 md:px-6 border-b border-violet-500/10 backdrop-blur-xl"
       >
-        <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
+        <div className="max-w-7xl mx-auto h-full flex items-center justify-between gap-2">
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="flex items-center gap-3 cursor-pointer group"
@@ -317,71 +318,125 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="p-2.5 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-violet-500/30 relative"
+              className="p-2 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-violet-500/30 relative"
             >
-              <Activity className="w-5 h-5 text-white relative z-10" />
+              <Activity className="w-4 h-4 md:w-5 md:h-5 text-white relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-cyan-400 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
             <motion.span
               className="font-black text-2xl tracking-tighter text-white"
-              whileHover={{ letterSpacing: '0.05em' }}
               transition={{ duration: 0.3 }}
             >
               Civic<span className="gradient-text-animated">Resolve</span>
             </motion.span>
           </motion.div>
-          
+
           <div className="flex items-center gap-10">
 
-  {/* Navigation Links */}
-  <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400">
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-400">
 
-    <a href="#home" className="hover:text-violet-400 transition-colors duration-300">
-      Home
-    </a>
+              <a href="#home" className="hover:text-violet-400 transition-colors duration-300">
+                Home
+              </a>
 
-    <a href="#features" className="hover:text-violet-400 transition-colors duration-300">
-      Features
-    </a>
+              <a href="#features" className="hover:text-violet-400 transition-colors duration-300">
+                Features
+              </a>
 
-    <a href="#about" className="hover:text-violet-400 transition-colors duration-300">
-      About
-    </a>
+              <a href="#about" className="hover:text-violet-400 transition-colors duration-300">
+                About
+              </a>
 
-    <a href="#contact" className="hover:text-violet-400 transition-colors duration-300">
-      Contact
-    </a>
+              <a href="#contact" className="hover:text-violet-400 transition-colors duration-300">
+                Contact
+              </a>
 
-  </div>
+            </div>
 
-  {/* Live Feed */}
-  <motion.button 
-    whileHover={{ scale: 1.05, x: 5 }}
-    onClick={() => setShowTable(true)}
-    className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
-  >
-    <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
-    <span>Live Feed</span>
-  </motion.button>
+            {/* Live Feed */}
+            <motion.button
+              whileHover={{ scale: 1.05, x: 5 }}
+              onClick={() => setShowTable(true)}
+              className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-violet-300 transition-all duration-300 group"
+            >
+              <Eye className="w-4 h-4 group-hover:text-cyan-400 transition-colors" />
+              <span>Live Feed</span>
+            </motion.button>
 
-  {/* Control Center */}
-  <MagneticButton 
-    onClick={onEnterPortal}
-    className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
-  >
-    <span className="relative z-10">Control Center</span>
-    <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-  </MagneticButton>
+            {/* Control Center */}
+            <MagneticButton
+              onClick={onEnterPortal}
+              className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all text-sm flex items-center gap-2 group relative overflow-hidden"
+            >
+              <span className="relative z-10">Control Center</span>
+              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </MagneticButton>
 
-</div>
+          </div>
 
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#030712]/95 border-b border-violet-500/10 overflow-hidden"
+            >
+              <div className="flex flex-col p-6 gap-6 text-sm font-bold text-slate-400">
+                <a href="#home" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>Home</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <a href="#features" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>Features</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>About</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-violet-400 transition-all flex items-center justify-between group">
+                  <span>Contact</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+                <button
+                  onClick={() => {
+                    setShowTable(true);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex items-center justify-between text-left group hover:text-cyan-400 transition-all border-b border-violet-500/10 pb-4"
+                >
+                  <div className="flex items-center gap-2">
+                    <Eye className="w-4 h-4" />
+                    <span>Live Feed</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+
+                <button
+                  onClick={() => {
+                    onEnterPortal();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-black rounded-xl shadow-lg flex items-center justify-center gap-2 group"
+                >
+                  <span>Access Portal</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Hero Section */}
-<section id="home" ref={heroRef} className="relative pt-48 pb-32 px-6 z-10">
-        <motion.div 
+      <section id="home" ref={heroRef} className="relative pt-16 pb-32 px-6 z-10">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={heroInView ? "visible" : "hidden"}
@@ -389,7 +444,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
         >
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-3 px-6 py-3 glass-light rounded-full text-violet-300 text-[10px] font-black uppercase tracking-[0.25em] mb-12 shimmer"
+            className="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 glass-light rounded-full text-violet-300 text-[8px] md:text-[10px] font-black uppercase tracking-[0.15em] md:tracking-[0.25em] mb-8 md:mb-12 shimmer"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -403,7 +458,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] mb-14"
+            className="text-7xl md:text-[8rem] font-black tracking-tighter leading-[0.8] mb-10"
           >
             <motion.span
               className="text-white text-glow inline-block"
@@ -427,7 +482,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
           <motion.p
             variants={itemVariants}
-            className="max-w-2xl mx-auto text-slate-400 text-xl font-medium mb-16 leading-relaxed"
+            className="max-w-2xl mx-auto text-slate-400 text-base md:text-xl font-medium mb-10 md:mb-16 leading-relaxed px-4"
           >
             A gentle yet powerful gaze over Bhopal{' '}
             <motion.span
@@ -444,10 +499,10 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             nodes identify infrastructure needs with precision, ensuring every street feels like home.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-6">
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4 md:gap-6 px-4">
             <MagneticButton
               onClick={() => setShowTable(true)}
-              className="magnetic-btn px-12 py-6 bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 text-white font-black rounded-3xl shadow-2xl shadow-violet-500/30 flex items-center gap-3 group relative overflow-hidden hover:shadow-violet-500/50 hover:shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-500"
+              className="magnetic-btn px-12 py-3 bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 text-white font-black rounded-3xl shadow-2xl shadow-violet-500/30 flex items-center gap-3 group relative overflow-hidden hover:shadow-violet-500/50 hover:shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-500"
             >
               {/* Animated background shimmer */}
               <motion.div
@@ -480,7 +535,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
 
             <motion.div
               whileHover={{ scale: 1.02, borderColor: 'rgba(139, 92, 246, 0.5)' }}
-              className="px-10 py-6 glass-cyber rounded-3xl flex items-center gap-5 group border border-violet-500/20 transition-all duration-300"
+              className="px-10 py-3 glass-cyber rounded-3xl flex items-center gap-5 group border border-violet-500/20 transition-all duration-300"
             >
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
@@ -491,7 +546,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
                 <div className="absolute inset-0 bg-cyan-400/30 rounded-full blur-md" />
               </motion.div>
               <div className="text-left">
-                <p className="text-3xl font-black leading-none text-white">
+                <p className="text-2xl font-black leading-none text-white">
                   {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : <AnimatedCounter value={stats.totalNodes} />}
                 </p>
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Live Nodes Active</p>
@@ -519,7 +574,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
               />
             </motion.div>
             <motion.span
-              className="text-[10px] font-bold uppercase tracking-widest text-slate-600 group-hover:text-violet-400 transition-colors"
+              className="text-[10px] mt-3 font-bold uppercase tracking-widest text-slate-600 group-hover:text-violet-400 transition-colors"
               whileHover={{ letterSpacing: '0.3em' }}
             >
               Scroll to explore
@@ -529,7 +584,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Stats Bento Grid */}
-<section id="features" className="py-24 px-6 relative z-10">
+      <section id="features" className="py-24 px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             variants={containerVariants}
@@ -623,7 +678,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Interactive Map Section */}
-<section id="about" className="py-32 px-6 relative z-10">
+      <section id="about" className="py-32 px-6 relative z-10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
             <motion.div
@@ -683,7 +738,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-cyber p-4 rounded-[4rem] overflow-hidden h-[750px] relative border border-violet-500/20 shadow-2xl violet-glow"
+            className="glass-cyber p-4 rounded-[1.5rem] overflow-hidden h-[750px] relative border border-violet-500/20 shadow-2xl violet-glow"
           >
             {/* Map Legend */}
             <motion.div
@@ -891,7 +946,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       <section className="py-32 px-6 relative z-10 border-t border-violet-500/10 bg-[#030712]/80">
         <div className="max-w-5xl mx-auto text-center space-y-8">
 
-          <h2 className="text-5xl font-black tracking-tighter text-white">
+          <h2 className="text-6xl font-black tracking-tighter text-white">
             About <span className="gradient-text-animated">CivicResolve</span>
           </h2>
 
@@ -944,7 +999,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
       </section>
 
       {/* Footer */}
-<footer id="contact" className="py-40 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
+      <footer id="contact" className="py-20 relative z-10 border-t border-violet-500/10 bg-[#030712]/90">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
             <div className="md:col-span-2 space-y-12">
@@ -1017,7 +1072,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
                 <Cpu className="w-3 h-3" />
                 Architecture
               </h4>
-              <ul className="space-y-8 text-sm font-bold text-slate-500">
+              <ul className="space-y-8 text-sm font-bold text-slate-500 -ml-2">
                 <motion.li
                   whileHover={{ x: 10, scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 300 }}
@@ -1081,7 +1136,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
               </motion.div>
             </div>
           </div>
-          <div className="mt-6 flex justify-end items-center gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
+          <div className="mt-10 flex justify-end items-center gap-5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">
             <Link
               href="/privacy-policy"
               className="hover:text-violet-400 transition-colors duration-300"
@@ -1104,7 +1159,7 @@ const LandingView: React.FC<LandingViewProps> = ({ onEnterPortal }) => {
             </Link>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">
+          <div className="mt-6 pt-6 border-t border-violet-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-600 text-[10px] font-black uppercase tracking-[0.4em]">
             <span>&copy; {new Date().getFullYear()} Bhopal Smart City Initiative</span>
             <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}

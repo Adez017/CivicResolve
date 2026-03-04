@@ -1,4 +1,11 @@
 {
+  "scripts": {
+    "dev": "npm run dev --prefix frontend_4",
+    "build": "npm run build --prefix frontend_4",
+    "start": "npm run start --prefix frontend_4",
+    "backend": "python backend/app.py",
+    "setup": "python -m pip install -r requirements.txt && npm install --prefix frontend_4"
+  },
   "dependencies": {
     "axios": "^1.13.2",
     "leaflet": "^1.9.4",

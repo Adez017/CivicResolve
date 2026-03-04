@@ -1,18 +1,17 @@
 import os
 import sys
+from pathlib import Path
+
+# Add project root to path BEFORE other backend imports
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import logging
 import time
 from flask import request
-
-from pathlib import Path
-from flask import Flask, jsonify, send_from_directory  # <--- Import send_from_directory
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from backend.config import config
 from backend.models import db
-
-
-# Add project root to path
-sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 
 def create_app(config_name='default'):
